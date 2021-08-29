@@ -62,14 +62,14 @@ extern "C"{
  */
 typedef enum
 {
-    LM75B_ADDRESS_A000 = 0,        /**< A0A1A2 000 */
-    LM75B_ADDRESS_A001 = 1,        /**< A0A1A2 001 */
-    LM75B_ADDRESS_A010 = 2,        /**< A0A1A2 010 */
-    LM75B_ADDRESS_A011 = 3,        /**< A0A1A2 011 */
-    LM75B_ADDRESS_A100 = 4,        /**< A0A1A2 100 */
-    LM75B_ADDRESS_A101 = 5,        /**< A0A1A2 101 */
-    LM75B_ADDRESS_A110 = 6,        /**< A0A1A2 110 */
-    LM75B_ADDRESS_A111 = 7,        /**< A0A1A2 111 */
+    LM75B_ADDRESS_A000 = 0,        /**< A2A1A0 000 */
+    LM75B_ADDRESS_A001 = 1,        /**< A2A1A0 001 */
+    LM75B_ADDRESS_A010 = 2,        /**< A2A1A0 010 */
+    LM75B_ADDRESS_A011 = 3,        /**< A2A1A0 011 */
+    LM75B_ADDRESS_A100 = 4,        /**< A2A1A0 100 */
+    LM75B_ADDRESS_A101 = 5,        /**< A2A1A0 101 */
+    LM75B_ADDRESS_A110 = 6,        /**< A2A1A0 110 */
+    LM75B_ADDRESS_A111 = 7,        /**< A2A1A0 111 */
 } lm75b_address_t;
 
 /**
