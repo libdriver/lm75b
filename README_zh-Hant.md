@@ -1,10 +1,12 @@
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+
 <div align=center>
 <img src="/doc/image/logo.png"/>
 </div>
 
 ## LibDriver LM75B
 
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/lm75b/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 LM75B是一款溫度-數字轉換器，使用片上帶隙溫度傳感器和Σ-Δ A/D轉換技術並帶有過熱檢測輸出。 LM75B包含一系列數據寄存器：儲存諸如器件工作模式、OS工作模式、OS極性和OS故障隊列等器件設置的配置寄存器(Conf)；儲存數字溫度讀數的溫度寄存器(Temp)以及儲存可編程過熱關斷和滯後極限的設置點寄存器(Tos和Thyst)，可通過2線串行I²C總線接口與控制器進行通信。該器件還提供開漏輸出(OS)，可在溫度超過編程限值時激活。共有三個可選邏輯地址引腳，因此可在同一總線上連接八個器件而不會發生地址衝突。 LM75B可為不同的工作條件進行配置。可將其設為正常模式以定期監視環境溫度，或設為關斷模式以使功耗最小化。 OS輸出可在兩種可選模式中的任意一種下工作：OS比較器模式或OS中斷模式。其有效狀態可選為高電平或低電平。定義連續故障數以激活OS輸出的故障隊列以及設置點極限均為可編程。溫度寄存器始終存儲11位二進制補碼數據，溫度分辨率為0.125 °C。對於精確測量熱漂移或熱逃逸的應用，這一較高的溫度分辨率尤其有用。當訪問LM75B時，不會中斷進行中的轉換(即，I2C總線部分完全獨立於Σ-Δ轉換器部分)且連續訪問LM75B而無需等待通信之間哪怕一個轉換時間，但這不會妨礙器件使用新的轉換結果更新溫度寄存器。溫度寄存器更新後，可立即使用新的轉換結果。 LM75B上電時處於正常工作模式，即OS處於比較器模式、溫度閾值為80 Cel且滯後為75 Cel，因此可用作帶有那些預定義溫度設置點的獨立恆溫器。 LM75B被用於系統熱管理、個人計算機、電子設備和工業控制器等。
 
