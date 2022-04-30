@@ -40,6 +40,7 @@
 #include "driver_lm75b_read_test.h"
 #include "driver_lm75b_interrupt_test.h"
 #include "gpio.h"
+#include <stdlib.h>
 
 /**
  * @brief global var definition
@@ -87,7 +88,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
             /* print pin connection */
             lm75b_interface_debug_print("lm75b: SCL connected to GPIO3(BCM).\n");
             lm75b_interface_debug_print("lm75b: SDA connected to GPIO2(BCM).\n");
-            lm75b_interface_debug_print("lm75b: INT connected to GPIO17(BCM).\n");
+            lm75b_interface_debug_print("lm75b: OS connected to GPIO17(BCM).\n");
             
             return 0;
         }
@@ -174,7 +175,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
                     return 5;
                 }
                 /* run reg test */
-                if (lm75b_register_test(addr))
+                if (lm75b_register_test(addr) != 0)
                 {
                     return 1;
                 }
@@ -249,7 +250,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
                 }
                 
                 /* run read test */
-                if (lm75b_read_test(addr, atoi(argv[3])))
+                if (lm75b_read_test(addr, atoi(argv[3])) != 0)
                 {
                     return 1;
                 }
@@ -270,10 +271,10 @@ uint8_t lm75b(uint8_t argc, char **argv)
             /* read function */
             if (strcmp("read", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t times;
-                volatile uint32_t i;
-                volatile float t;
+                uint8_t res;
+                uint32_t times;
+                uint32_t i;
+                float t;
                 lm75b_address_t addr;
                 
                 if (strcmp("-a", argv[4]) != 0)
@@ -320,25 +321,25 @@ uint8_t lm75b(uint8_t argc, char **argv)
                 }
                 
                 res = lm75b_basic_init(addr);
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
                 times = atoi(argv[3]);
-                for (i=0; i<times; i++)
+                for (i = 0; i < times; i++)
                 {
                     lm75b_interface_delay_ms(1000);
                     res = lm75b_basic_read((float *)&t);
-                    if (res)
+                    if (res != 0)
                     {
-                        lm75b_basic_deinit();
+                        (void)lm75b_basic_deinit();
                         
                         return 1;
                     }
                     lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
                     lm75b_interface_debug_print("lm75b: temperature is %0.3fC.\n", t);
                 }
-                lm75b_basic_deinit();
+                (void)lm75b_basic_deinit();
                 
                 return 0;
             }
@@ -362,7 +363,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
              /* int */
             if (strcmp("int", argv[2]) == 0)
             {
-                volatile uint8_t res;
+                uint8_t res;
                 lm75b_address_t addr;
                 lm75b_os_operation_mode_t mode;
                 
@@ -427,18 +428,18 @@ uint8_t lm75b(uint8_t argc, char **argv)
                     return 5;
                 }
                 res = gpio_interrupt_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
-                res = lm75b_interrupt_test(addr, mode, atof(argv[8]), atof(argv[9]), atoi(argv[3]));
-                if (res)
+                res = lm75b_interrupt_test(addr, mode, (float)atof(argv[8]), (float)atof(argv[9]), atoi(argv[3]));
+                if (res != 0)
                 {
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 1;
                 }
-                gpio_interrupt_deinit();
+                (void)gpio_interrupt_deinit();
                 
                 return 0;
             }
@@ -454,10 +455,10 @@ uint8_t lm75b(uint8_t argc, char **argv)
              /* int */
             if (strcmp("int", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t times;
-                volatile uint32_t i;
-                volatile float t;
+                uint8_t res;
+                uint32_t times;
+                uint32_t i;
+                float t;
                 lm75b_address_t addr;
                 lm75b_os_operation_mode_t mode;
                 
@@ -523,40 +524,40 @@ uint8_t lm75b(uint8_t argc, char **argv)
                 }
                 times = atoi(argv[3]);
                 res = gpio_interrupt_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
-                res = lm75b_interrupt_init(addr, mode, atof(argv[8]), atof(argv[9]));
-                if (res)
+                res = lm75b_interrupt_init(addr, mode, (float)atof(argv[8]), (float)atof(argv[9]));
+                if (res != 0)
                 {
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 1;
                 }
                 g_flag = 0;
-                for (i=0; i<times; i++)
+                for (i = 0; i < times; i++)
                 {
                     lm75b_interface_delay_ms(1000);
                     res = lm75b_interrupt_read((float *)&t);
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
-                        lm75b_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
+                        (void)lm75b_interrupt_deinit();
                         
                         return 1;
                     }
                     lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
                     lm75b_interface_debug_print("lm75b: read is %0.3fC.\n", t);
-                    if (g_flag)
+                    if (g_flag != 0)
                     {
                         lm75b_interface_debug_print("lm75b: find interrupt.\n");
                         
                         break;
                     }
                 }
-                gpio_interrupt_deinit();
-                lm75b_interrupt_deinit();
+                (void)gpio_interrupt_deinit();
+                (void)lm75b_interrupt_deinit();
                 
                 return 0;
             }

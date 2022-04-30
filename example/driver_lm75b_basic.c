@@ -49,7 +49,7 @@ static lm75b_handle_t gs_handle;        /**< lm75b handle */
  */
 uint8_t lm75b_basic_init(lm75b_address_t addr)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link interface function */
     DRIVER_LM75B_LINK_INIT(&gs_handle, lm75b_handle_t);
@@ -62,7 +62,7 @@ uint8_t lm75b_basic_init(lm75b_address_t addr)
     
     /* set addr pin */
     res = lm75b_set_addr_pin(&gs_handle, addr);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -71,7 +71,7 @@ uint8_t lm75b_basic_init(lm75b_address_t addr)
     
     /* lm75b init */
     res = lm75b_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: init failed.\n");
        
@@ -80,60 +80,60 @@ uint8_t lm75b_basic_init(lm75b_address_t addr)
     
     /* set interrupt mode */
     res = lm75b_set_interrupt_mode(&gs_handle, LM75B_OS_OPERATION_INTERRUPT);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set interrupt mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set fault queue 1 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_1);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set os polarity low*/
     res = lm75b_set_os_polarity(&gs_handle, LM75B_OS_POLARITY_LOW);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set os polarity failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set over temperature threshold */
-    res = lm75b_set_over_temperature_threshold(&gs_handle, 0xFF80);
-    if (res)
+    res = lm75b_set_over_temperature_threshold(&gs_handle, 0xFF80U);
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set over temperature threshold failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set hysteresis */
-    res = lm75b_set_hysteresis(&gs_handle, 0x0000);
-    if (res)
+    res = lm75b_set_hysteresis(&gs_handle, 0x0000U);
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set hysteresis failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set normal mode */
     res = lm75b_set_mode(&gs_handle, LM75B_MODE_NORMAL);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -151,10 +151,10 @@ uint8_t lm75b_basic_init(lm75b_address_t addr)
  */
 uint8_t lm75b_basic_read(float *s)
 {
-    volatile uint16_t raw;
+    uint16_t raw;
     
     /* read adc data */
-    if (lm75b_read(&gs_handle, (uint16_t *)&raw, (float *)s))
+    if (lm75b_read(&gs_handle, (uint16_t *)&raw, (float *)s) != 0)
     {
         return 1;
     }
@@ -173,19 +173,17 @@ uint8_t lm75b_basic_read(float *s)
  */
 uint8_t lm75b_basic_deinit(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* set mode */
     res = lm75b_set_mode(&gs_handle, LM75B_MODE_SHUTDOWN);
-    if (res)
+    if (res != 0)
     {
-        lm75b_interface_debug_print("lm75b: shut down failed.\n");
-        
         return 1;
     }
     
     /* close lm75b */
-    if (lm75b_deinit(&gs_handle))
+    if (lm75b_deinit(&gs_handle) != 0)
     {
         return 1;
     }

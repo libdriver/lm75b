@@ -1,4 +1,4 @@
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
 <img src="/doc/image/logo.png"/>
@@ -6,11 +6,11 @@
 
 ## LibDriver LM75B
 
-[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/lm75b/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
+[![MISRA](https://img.shields.io/badge/misra-compliant-brightgreen.svg)](/misra/README.md) [![API](https://img.shields.io/badge/api-reference-blue.svg)](https://www.libdriver.com/docs/lm75b/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 LM75B是一款温度-数字转换器，使用片上带隙温度传感器和Σ-Δ A/D转换技术并带有过热检测输出。LM75B包含一系列数据寄存器：储存诸如器件工作模式、OS工作模式、OS极性和OS故障队列等器件设置的配置寄存器(Conf)；储存数字温度读数的温度寄存器(Temp)以及储存可编程过热关断和滞后极限的设置点寄存器(Tos和Thyst)，可通过2线串行I²C总线接口与控制器进行通信。该器件还提供开漏输出(OS)，可在温度超过编程限值时激活。共有三个可选逻辑地址引脚，因此可在同一总线上连接八个器件而不会发生地址冲突。LM75B可为不同的工作条件进行配置。可将其设为正常模式以定期监视环境温度，或设为关断模式以使功耗最小化。OS输出可在两种可选模式中的任意一种下工作：OS比较器模式或OS中断模式。其有效状态可选为高电平或低电平。定义连续故障数以激活OS输出的故障队列以及设置点极限均为可编程。温度寄存器始终存储11位二进制补码数据，温度分辨率为0.125 °C。对于精确测量热漂移或热逃逸的应用，这一较高的温度分辨率尤其有用。当访问LM75B时，不会中断进行中的转换(即，I2C总线部分完全独立于Σ-Δ转换器部分)且连续访问LM75B而无需等待通信之间哪怕一个转换时间，但这不会妨碍器件使用新的转换结果更新温度寄存器。温度寄存器更新后，可立即使用新的转换结果。LM75B上电时处于正常工作模式，即OS处于比较器模式、温度阈值为80 Cel且滞后为75 Cel，因此可用作带有那些预定义温度设置点的独立恒温器。LM75B被用于系统热管理、个人计算机、电子设备和工业控制器等。
 
-LibDriver LM75B是LibDriver推出的LM75B的全功能驱动，该驱动提供温度读取和中断检测等功能。
+LibDriver LM75B是LibDriver推出的LM75B的全功能驱动，该驱动提供温度读取和中断检测等功能并且它符合MISRA标准。
 
 ### 目录
 
@@ -56,7 +56,7 @@ uint8_t i;
 float t;
 
 res = lm75b_basic_init(LM75B_ADDRESS_A000);
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -67,9 +67,9 @@ for (i = 0; i < 3; i++)
 {
     lm75b_interface_delay_ms(1000);
     res = lm75b_basic_read((float *)&t);
-    if (res)
+    if (res != 0)
     {
-        lm75b_basic_deinit();
+        (void)lm75b_basic_deinit();
 
         return 1;
     }
@@ -81,7 +81,7 @@ for (i = 0; i < 3; i++)
 
 ...
 
-lm75b_basic_deinit();
+(void)lm75b_basic_deinit();
 
 return 0;
 ```
@@ -95,14 +95,14 @@ float t;
 uint8_t g_flag;
 
 res = gpio_interrupt_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
 res = lm75b_interrupt_init(LM75B_ADDRESS_A000, LM75B_OS_OPERATION_INTERRUPT, 22.5, 32.1);
-if (res)
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -113,10 +113,10 @@ for (i = 0; i < 3; i++)
 {
     lm75b_interface_delay_ms(1000);
     res = lm75b_interrupt_read((float *)&t);
-    if (res)
+    if (res != 0)
     {
-        gpio_interrupt_deinit();
-        lm75b_interrupt_deinit();
+        (void)gpio_interrupt_deinit();
+        (void)lm75b_interrupt_deinit();
 
         return 1;
     }
@@ -124,7 +124,7 @@ for (i = 0; i < 3; i++)
     
     ...
     
-    if (g_flag)
+    if (g_flag != 0)
     {
         lm75b_interface_debug_print("lm75b: find interrupt.\n");
 
@@ -137,8 +137,8 @@ for (i = 0; i < 3; i++)
 
 ...
 
-gpio_interrupt_deinit();
-lm75b_interrupt_deinit();
+(void)gpio_interrupt_deinit();
+(void)lm75b_interrupt_deinit();
 
 return 0;
 ```
