@@ -157,7 +157,7 @@ uint8_t lm75b_hysteresis_convert_to_data(lm75b_handle_t *handle, uint16_t reg, f
     }
     
     reg = reg >> 7;                                                /* right shift 7 */
-    if (reg & 0x0100)                                              /* check first bit */
+    if ((reg & 0x0100) != 0)                                       /* check first bit */
     {
         *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negtive set convert temp */
     }
@@ -182,8 +182,8 @@ uint8_t lm75b_hysteresis_convert_to_data(lm75b_handle_t *handle, uint16_t reg, f
  */
 uint8_t lm75b_set_hysteresis(lm75b_handle_t *handle, uint16_t hysteresis)
 {
-    volatile uint8_t res;
-    volatile uint8_t buf[2];
+    uint8_t res;
+    uint8_t buf[2];
     
     if (handle == NULL)                                                                   /* check handle */
     {
@@ -197,7 +197,7 @@ uint8_t lm75b_set_hysteresis(lm75b_handle_t *handle, uint16_t hysteresis)
     buf[0] = (hysteresis >> 8) & 0xFF;                                                    /* set MSB */
     buf[1] = hysteresis & 0xFF;                                                           /* set LSB */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_THYST, (uint8_t *)buf, 2);        /* set hysteresis */
-    if (res)                                                                              /* check result */
+    if (res != 0)                                                                         /* check result */
     {
         handle->debug_print("lm75b: write hysteresis failed.\n");                         /* write hysteresis failed */
        
@@ -220,8 +220,8 @@ uint8_t lm75b_set_hysteresis(lm75b_handle_t *handle, uint16_t hysteresis)
  */
 uint8_t lm75b_get_hysteresis(lm75b_handle_t *handle, uint16_t *hysteresis)
 {
-    volatile uint8_t res;
-    volatile uint8_t buf[2];
+    uint8_t res;
+    uint8_t buf[2];
     
     if (handle == NULL)                                                                  /* check handle */
     {
@@ -233,13 +233,13 @@ uint8_t lm75b_get_hysteresis(lm75b_handle_t *handle, uint16_t *hysteresis)
     }
     
     res = handle->iic_read(handle->iic_addr, LM75B_REG_THYST, (uint8_t *)buf, 2);        /* get hysteresis */
-    if (res)                                                                             /* check result */
+    if (res != 0)                                                                        /* check result */
     {
         handle->debug_print("lm75b: read hysteresis failed.\n");                         /* read hysteresis failed */
        
         return 1;                                                                        /* return error */
     }
-    *hysteresis = (uint16_t)(buf[0] << 8) | buf[1];                                      /* set data */
+    *hysteresis = (uint16_t)(((uint16_t)buf[0]) << 8) | buf[1];                          /* set data */
     
     return 0;                                                                            /* success return 0 */
 }
@@ -301,7 +301,7 @@ uint8_t lm75b_over_temperature_threshold_convert_to_data(lm75b_handle_t *handle,
     }
     
     reg = reg >> 7;                                                /* right shift 7 */
-    if (reg & 0x0100)                                              /* check first bit */
+    if ((reg & 0x0100) != 0)                                       /* check first bit */
     {
         *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negtive set convert temp */
     }
@@ -326,8 +326,8 @@ uint8_t lm75b_over_temperature_threshold_convert_to_data(lm75b_handle_t *handle,
  */
 uint8_t lm75b_set_over_temperature_threshold(lm75b_handle_t *handle, uint16_t threshold)
 {
-    volatile uint8_t res;
-    volatile uint8_t buf[2];
+    uint8_t res;
+    uint8_t buf[2];
     
     if (handle == NULL)                                                                 /* check handle */
     {
@@ -341,7 +341,7 @@ uint8_t lm75b_set_over_temperature_threshold(lm75b_handle_t *handle, uint16_t th
     buf[0] = (threshold >> 8) & 0xFF;                                                   /* set MSB */
     buf[1] = threshold & 0xFF;                                                          /* set LSB */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_TOS, (uint8_t *)buf, 2);        /* set threshold */
-    if (res)                                                                            /* check result */
+    if (res != 0)                                                                       /* check result */
     {
         handle->debug_print("lm75b: write tos failed.\n");                              /* write tos failed */
        
@@ -364,8 +364,8 @@ uint8_t lm75b_set_over_temperature_threshold(lm75b_handle_t *handle, uint16_t th
  */
 uint8_t lm75b_get_over_temperature_threshold(lm75b_handle_t *handle, uint16_t *threshold)
 {
-    volatile uint8_t res;
-    volatile uint8_t buf[2];
+    uint8_t res;
+    uint8_t buf[2];
     
     if (handle == NULL)                                                                /* check handle */
     {
@@ -377,13 +377,13 @@ uint8_t lm75b_get_over_temperature_threshold(lm75b_handle_t *handle, uint16_t *t
     }
     
     res = handle->iic_read(handle->iic_addr, LM75B_REG_TOS, (uint8_t *)buf, 2);        /* get threshold */
-    if (res)                                                                           /* check result */
+    if (res != 0)                                                                      /* check result */
     {
         handle->debug_print("lm75b: read tos failed.\n");                              /* read tos failed */
        
         return 1;                                                                      /* return error */
     }
-    *threshold = (uint16_t)(buf[0] << 8) | buf[1];                                     /* set data */
+    *threshold = (uint16_t)(((uint16_t)buf[0]) << 8) | buf[1];                         /* set data */
     
     return 0;                                                                          /* success return 0 */
 }
@@ -401,8 +401,8 @@ uint8_t lm75b_get_over_temperature_threshold(lm75b_handle_t *handle, uint16_t *t
  */
 uint8_t lm75b_set_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t fault_queue)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -414,7 +414,7 @@ uint8_t lm75b_set_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t fault_
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read config */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -423,7 +423,7 @@ uint8_t lm75b_set_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t fault_
     prev &= ~ (0x03 << 3);                                                                 /* clear fault queue */
     prev |= fault_queue << 3;                                                              /* set queue */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write conf */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
        
@@ -446,8 +446,8 @@ uint8_t lm75b_set_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t fault_
  */
 uint8_t lm75b_get_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t *fault_queue)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -459,7 +459,7 @@ uint8_t lm75b_get_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t *fault
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -483,8 +483,8 @@ uint8_t lm75b_get_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t *fault
  */
 uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polarity)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -496,7 +496,7 @@ uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polari
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -505,7 +505,7 @@ uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polari
     prev &= ~ (1 << 2);                                                                    /* clear polarity */
     prev |= polarity << 2;                                                                 /* set polarity */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write confure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
        
@@ -528,8 +528,8 @@ uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polari
  */
 uint8_t lm75b_get_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t *polarity)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -541,7 +541,7 @@ uint8_t lm75b_get_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t *polar
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -565,8 +565,8 @@ uint8_t lm75b_get_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t *polar
  */
 uint8_t lm75b_set_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode_t mode)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -578,7 +578,7 @@ uint8_t lm75b_set_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -587,7 +587,7 @@ uint8_t lm75b_set_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
     prev &= ~ (1 << 1);                                                                    /* clear mode */
     prev |= mode << 1;                                                                     /* set mode */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
        
@@ -610,8 +610,8 @@ uint8_t lm75b_set_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
  */
 uint8_t lm75b_get_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode_t *mode)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -623,7 +623,7 @@ uint8_t lm75b_get_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -647,8 +647,8 @@ uint8_t lm75b_get_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
  */
 uint8_t lm75b_set_mode(lm75b_handle_t *handle, lm75b_mode_t mode)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -660,7 +660,7 @@ uint8_t lm75b_set_mode(lm75b_handle_t *handle, lm75b_mode_t mode)
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read configure failed */
        
@@ -669,7 +669,7 @@ uint8_t lm75b_set_mode(lm75b_handle_t *handle, lm75b_mode_t mode)
     prev &= ~ (1 << 0);                                                                    /* clear mode */
     prev |= mode << 0;                                                                     /* set mode */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write conf */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
        
@@ -692,8 +692,8 @@ uint8_t lm75b_set_mode(lm75b_handle_t *handle, lm75b_mode_t mode)
  */
 uint8_t lm75b_get_mode(lm75b_handle_t *handle, lm75b_mode_t *mode)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -705,7 +705,7 @@ uint8_t lm75b_get_mode(lm75b_handle_t *handle, lm75b_mode_t *mode)
     }
 
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read configure */
-    if (res)                                                                               /* check error */
+    if (res != 0)                                                                          /* check error */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read config failed */
        
@@ -767,7 +767,7 @@ uint8_t lm75b_init(lm75b_handle_t *handle)
         return 3;                                                   /* return error */
     }
     
-    if (handle->iic_init())                                         /* initialize iic bus */
+    if (handle->iic_init() != 0)                                    /* initialize iic bus */
     {
         handle->debug_print("lm75b: iic init failed.\n");           /* iic init failed */
         
@@ -790,8 +790,8 @@ uint8_t lm75b_init(lm75b_handle_t *handle)
  */
 uint8_t lm75b_deinit(lm75b_handle_t *handle)
 {
-    volatile uint8_t res;
-    volatile uint8_t prev;
+    uint8_t res;
+    uint8_t prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -803,7 +803,7 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle)
     }
     
     res = handle->iic_read(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);         /* read config */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: read configure failed.\n");                            /* read config failed */
        
@@ -811,13 +811,13 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle)
     }
     prev &= ~(1 << 0);                                                                     /* clear mode */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write configure */
-    if (res)                                                                               /* check result */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configigure failed */
        
         return 1;                                                                          /* return error */
     }
-    if (handle->iic_deinit())                                                              /* close iic bus */
+    if (handle->iic_deinit() != 0)                                                         /* close iic bus */
     {
         handle->debug_print("lm75b: iic deinit failed.\n");                                /* iic deinit failed */
         
@@ -842,8 +842,8 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle)
  */
 uint8_t lm75b_read(lm75b_handle_t *handle, uint16_t *raw, float *s)
 {
-    volatile uint8_t res;
-    volatile uint8_t buf[2];
+    uint8_t res;
+    uint8_t buf[2];
     
     if (handle == NULL)                                                                 /* check handle */
     {
@@ -854,19 +854,20 @@ uint8_t lm75b_read(lm75b_handle_t *handle, uint16_t *raw, float *s)
         return 3;                                                                       /* return error */
     }
     
+    memset(buf, 0, sizeof(uint8_t) * 2);                                                /* clear the buffer */
     res = handle->iic_read(handle->iic_addr, LM75B_REG_TEMP, (uint8_t *)buf, 2);        /* get temperature */
-    if (res)                                                                            /* check result */
+    if (res != 0)                                                                       /* check result */
     {
         handle->debug_print("lm75b: read temp failed.\n");                              /* read temp failed */
        
         return 1;                                                                       /* return error */
     }
-    *raw = (uint16_t)(buf[0] << 8) | buf[1];                                            /* set raw data */
+    *raw = (uint16_t)(((uint16_t)buf[0]) << 8) | buf[1];                                /* set raw data */
     *raw = (*raw) >> 5;                                                                 /* right shift 5 */
-    if ((*raw) & 0x0400)                                                                /* check first bit */
+    if (((*raw) & 0x0400) != 0)                                                         /* check first bit */
     {
-        *raw = (*raw) | 0xF800;                                                         /* set negtive part */
-        *s = -(~(*raw) + 1);                                                            /* if negtive set convert temp */
+        *raw = (*raw) | 0xF800U;                                                        /* set negtive part */
+        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          /* if negtive set convert temp */
     }
     else
     {
@@ -900,7 +901,16 @@ uint8_t lm75b_set_reg(lm75b_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_
         return 3;                                                   /* return error */
     }
   
-    return handle->iic_write(handle->iic_addr, reg, buf, len);      /* write register */
+    if (handle->iic_write(handle->iic_addr, reg, buf, len) != 0)    /* write register */
+    {
+        handle->debug_print("lm75b: write failed.\n");              /* write failed */
+       
+        return 1;                                                   /* return error */
+    }
+    else
+    {
+        return 0;                                                   /* success return 0 */
+    }
 }
 
 /**
@@ -927,7 +937,16 @@ uint8_t lm75b_get_reg(lm75b_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_
         return 3;                                                  /* return error */
     }
   
-    return handle->iic_read(handle->iic_addr, reg, buf, len);      /* read register */
+    if (handle->iic_read(handle->iic_addr, reg, buf, len) != 0)    /* read register */
+    {
+        handle->debug_print("lm75b: read failed.\n");              /* read failed */
+       
+        return 1;                                                  /* return error */
+    }
+    else
+    {
+        return 0;                                                  /* success return 0 */
+    }
 }
 
 /**

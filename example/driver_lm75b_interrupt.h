@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LM75B_INTERRUPT_H_
-#define _DRIVER_LM75B_INTERRUPT_H_
+#ifndef DRIVER_LM75B_INTERRUPT_H
+#define DRIVER_LM75B_INTERRUPT_H
 
 #include "driver_lm75b_interface.h"
 

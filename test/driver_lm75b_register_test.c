@@ -50,14 +50,14 @@ static lm75b_handle_t gs_handle;        /**< lm75b handle */
  */
 uint8_t lm75b_register_test(lm75b_address_t addr)
 {
-    volatile uint8_t res; 
-    volatile uint16_t hysteresis;
-    volatile uint16_t threshold;
-    volatile uint16_t hysteresis_check;
-    volatile uint16_t threshold_check;
-    volatile float c;
-    volatile float c_check;
-    volatile uint16_t reg;
+    uint8_t res; 
+    uint16_t hysteresis;
+    uint16_t threshold;
+    uint16_t hysteresis_check;
+    uint16_t threshold_check;
+    float c;
+    float c_check;
+    uint16_t reg;
     lm75b_info_t info;
     lm75b_address_t addr_pin;
     lm75b_fault_queue_t fault_queue;
@@ -76,7 +76,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* get lm75b info */
     res = lm75b_info(&info);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get info failed.\n");
         
@@ -104,7 +104,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a000 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A000);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -112,7 +112,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a000.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -122,7 +122,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a001 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A001);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -130,7 +130,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a001.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -140,7 +140,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a010 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A010);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -148,7 +148,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a010.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -158,7 +158,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a011 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A011);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -166,7 +166,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a011.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -176,7 +176,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a100 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A100);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -184,7 +184,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a100.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -194,7 +194,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a101 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A101);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -202,7 +202,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a101.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -212,7 +212,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a110 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A110);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -220,7 +220,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a110.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -230,7 +230,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set a111 */
     res = lm75b_set_addr_pin(&gs_handle, LM75B_ADDRESS_A111);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -238,7 +238,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: set addr pin a111.\n");
     res = lm75b_get_addr_pin(&gs_handle, &addr_pin);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get addr pin failed.\n");
         
@@ -248,7 +248,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set addr pin */
     res = lm75b_set_addr_pin(&gs_handle, addr);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set addr pin failed.\n");
         
@@ -257,7 +257,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* lm75b init */
     res = lm75b_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: init failed.\n");
        
@@ -269,19 +269,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* fault queue 1 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_1);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set fault queue 1.\n");
     res = lm75b_get_fault_queue(&gs_handle, (lm75b_fault_queue_t *)&fault_queue);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -289,19 +289,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* fault queue 2 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_2);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set fault queue 2.\n");
     res = lm75b_get_fault_queue(&gs_handle, (lm75b_fault_queue_t *)&fault_queue);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -309,19 +309,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* fault queue 3 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_3);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set fault queue 3.\n");
     res = lm75b_get_fault_queue(&gs_handle, (lm75b_fault_queue_t *)&fault_queue);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -329,19 +329,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* fault queue 6 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_6);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set fault queue 6.\n");
     res = lm75b_get_fault_queue(&gs_handle, (lm75b_fault_queue_t *)&fault_queue);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get fault queue failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -352,19 +352,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set os ploarity low */
     res = lm75b_set_os_polarity(&gs_handle, LM75B_OS_POLARITY_LOW);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set os polarity failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set os ploarity low.\n");
     res = lm75b_get_os_polarity(&gs_handle, (lm75b_os_polarity_t *)&polarity);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get os polarity failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -372,19 +372,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* set os ploarity high */
     res = lm75b_set_os_polarity(&gs_handle, LM75B_OS_POLARITY_HIGH);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set os polarity failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set os ploarity high.\n");
     res = lm75b_get_os_polarity(&gs_handle, (lm75b_os_polarity_t *)&polarity);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get os polarity failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -395,19 +395,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* comparator */
     res = lm75b_set_interrupt_mode(&gs_handle, LM75B_OS_OPERATION_COMPARATOR);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set interrupt mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set comparator mode.\n");
     res = lm75b_get_interrupt_mode(&gs_handle, (lm75b_os_operation_mode_t *)&interrupt_mode);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get interrupt mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -415,19 +415,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* interrupt */
     res = lm75b_set_interrupt_mode(&gs_handle, LM75B_OS_OPERATION_INTERRUPT);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set interrupt mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set interrupt mode.\n");
     res = lm75b_get_interrupt_mode(&gs_handle, (lm75b_os_operation_mode_t *)&interrupt_mode);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get interrupt mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -436,19 +436,19 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* normal mode */
     res = lm75b_set_mode(&gs_handle, LM75B_MODE_NORMAL);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set normal mode.\n");
     res = lm75b_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -456,39 +456,39 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* shut down mode */
     res = lm75b_set_mode(&gs_handle, LM75B_MODE_SHUTDOWN);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set shut down mode.\n");
     res = lm75b_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get mode failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: check mode %s.\n", mode==LM75B_MODE_SHUTDOWN?"ok":"error");
     lm75b_interface_debug_print("lm75b: lm75b_set_hysteresis/lm75b_get_hysteresis test.\n");
-    hysteresis = (rand() / 65535) & 0xFF80;
+    hysteresis = (rand() / 65535) & 0xFF80U;
     res = lm75b_set_hysteresis(&gs_handle, hysteresis);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set hysteresis failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set hysteresis 0x%04X.\n", hysteresis);
     res = lm75b_get_hysteresis(&gs_handle, (uint16_t *)&hysteresis_check);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get hysteresis failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -496,21 +496,21 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* lm75b_set_over_temperature_threshold/lm75b_get_over_temperature_threshold test */
     lm75b_interface_debug_print("lm75b: lm75b_set_over_temperature_threshold/lm75b_get_over_temperature_threshold test.\n");
-    threshold = (rand() / 65535) & 0xFF80;
+    threshold = (rand() / 65535) & 0xFF80U;
     res = lm75b_set_over_temperature_threshold(&gs_handle, threshold);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set threshold failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: set threshold 0x%04X.\n", threshold);
     res = lm75b_get_over_temperature_threshold(&gs_handle, (uint16_t *)&threshold_check);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: get threshold failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -520,20 +520,20 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     lm75b_interface_debug_print("lm75b: lm75b_hysteresis_convert_to_register/lm75b_hysteresis_convert_to_data test.\n");
     c = (float)(rand() % 3000) / 30.0f;
     res = lm75b_hysteresis_convert_to_register(&gs_handle, c, (uint16_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: hysteresis convert to register failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: hysteresis data is %0.2f.\n", c);
     lm75b_interface_debug_print("lm75b: register is 0x%04X.\n", reg);
     res = lm75b_hysteresis_convert_to_data(&gs_handle, reg, (float *)&c_check);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: hysteresis convert to data failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -543,20 +543,20 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     lm75b_interface_debug_print("lm75b: lm75b_over_temperature_threshold_convert_to_register/lm75b_over_temperature_threshold_convert_to_data test.\n");
     c = -(float)(rand() % 3000) / 30.0f;
     res = lm75b_over_temperature_threshold_convert_to_register(&gs_handle, c, (uint16_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: over temperature threshold convert to register failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
     lm75b_interface_debug_print("lm75b: register is 0x%04X.\n", reg);
     lm75b_interface_debug_print("lm75b: over temperature threshold data is %0.2f.\n", c);
     res = lm75b_over_temperature_threshold_convert_to_data(&gs_handle, reg, (float *)&c_check);
-    if (res)
+    if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: over temperature threshold convert to data failed.\n");
-        lm75b_deinit(&gs_handle);
+        (void)lm75b_deinit(&gs_handle);
         
         return 1;
     }
@@ -564,7 +564,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     
     /* finish register test */
     lm75b_interface_debug_print("lm75b: finish register test.\n");
-    lm75b_deinit(&gs_handle);
+    (void)lm75b_deinit(&gs_handle);
     
     return 0;
 }
