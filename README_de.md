@@ -28,15 +28,15 @@ LibDriver LM75B ist der voll funktionsfähige Treiber von LM75B, der von LibDriv
 
 /src enthält LibDriver LM75B-Quelldateien.
 
-/interface enthält die plattformunabhängige Vorlage LibDriver LM75B IIC。
+/interface enthält die plattformunabhängige Vorlage LibDriver LM75B IIC.
 
-/test enthält den Testcode des LibDriver LM75B-Treibers und dieser Code kann die erforderliche Funktion des Chips einfach testen。
+/test enthält den Testcode des LibDriver LM75B-Treibers und dieser Code kann die erforderliche Funktion des Chips einfach testen.
 
 /example enthält LibDriver LM75B-Beispielcode.
 
 /doc enthält das LibDriver LM75B-Offlinedokument.
 
-/Datenblatt enthält LM75B-Datenblatt。
+/Datenblatt enthält LM75B-Datenblatt.
 
 /project enthält den allgemeinen Beispielcode für Linux- und MCU-Entwicklungsboards. Alle Projekte verwenden das Shell-Skript, um den Treiber zu debuggen, und die detaillierten Anweisungen finden Sie in der README.md jedes Projekts.
 
