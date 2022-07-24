@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>5</fileVersion>
-    <fileChecksum>2260522849</fileChecksum>
+    <fileChecksum>332175168</fileChecksum>
     <configuration>
         <name>Release</name>
         <outputs>
-            <file>$PROJ_DIR$\..\interface\src\iic.c</file>
-            <file>$PROJ_DIR$\..\interface\src\delay.c</file>
-            <file>$PROJ_DIR$\..\interface\src\uart.c</file>
-            <file>$PROJ_DIR$\..\interface\src\clock.c</file>
-            <file>$PROJ_DIR$\..\interface\src\gpio.c</file>
-            <file>$PROJ_DIR$\..\..\..\example\driver_lm75b_basic.c</file>
-            <file>$PROJ_DIR$\..\..\..\test\driver_lm75b_register_test.c</file>
-            <file>$PROJ_DIR$\..\driver\src\stm32f407_driver_lm75b_interface.c</file>
-            <file>$PROJ_DIR$\..\..\..\test\driver_lm75b_interrupt_test.c</file>
-            <file>$PROJ_DIR$\..\..\..\src\driver_lm75b.c</file>
-            <file>$PROJ_DIR$\..\..\..\example\driver_lm75b_interrupt.c</file>
-            <file>$PROJ_DIR$\..\..\..\test\driver_lm75b_read_test.c</file>
+            <file>$PROJ_DIR$\..\hal\asm\startup_stm32f407xx_ew.s</file>
         </outputs>
         <forcedrebuild>
             <name>[REBUILD_ALL]</name>
