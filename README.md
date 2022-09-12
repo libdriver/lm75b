@@ -28,15 +28,15 @@ LibDriver LM75B is the full function driver of LM75B launched by LibDriver.It pr
 
 /src includes LibDriver LM75B source files.
 
-/interface includes LibDriver LM75B IIC platform independent template。
+/interface includes LibDriver LM75B IIC platform independent template.
 
-/test includes LibDriver LM75B driver test code and this code can test the chip necessary function simply。
+/test includes LibDriver LM75B driver test code and this code can test the chip necessary function simply.
 
 /example includes LibDriver LM75B sample code.
 
 /doc includes LibDriver LM75B offline document.
 
-/datasheet includes LM75B datasheet。
+/datasheet includes LM75B datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
 
@@ -51,6 +51,8 @@ Add /src, /interface and /example to your project.
 #### example basic
 
 ```C
+#include "driver_lm75b_basic.h"
+
 uint8_t res;
 uint8_t i;
 float t;
@@ -89,6 +91,8 @@ return 0;
 #### example interrupt
 
 ```C
+#include "driver_lm75b_interrupt.h"
+
 uint8_t res;
 uint8_t i;
 float t;
