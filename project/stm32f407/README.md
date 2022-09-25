@@ -1,6 +1,6 @@
-### 1. chip
+### 1. Chip
 
-#### 1.1 chip info
+#### 1.1 Chip Info
 
 chip name : STM32F407ZGT6.
 
@@ -12,9 +12,9 @@ iic pin: SCL/SDA PB8/PB9.
 
 gpio pin: INT PB0.
 
-### 2. shell
+### 2. Shell
 
-#### 2.1 shell parameter
+#### 2.1 Shell Parameter
 
 baud rate: 115200.
 
@@ -26,9 +26,9 @@ parity: none.
 
 flow control: none.
 
-### 3. lm75b
+### 3. LM75B
 
-#### 3.1 command Instruction
+#### 3.1 Command Instruction
 
 ​          lm75b is a basic command which can test all lm75b driver function:
 
@@ -52,7 +52,7 @@ flow control: none.
 
 ​           -c int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>        run lm75b interrupt function. times means read times. lowthreshold means low interrupt threshold. highthreshold means high interrupt threshold.
 
-#### 3.2 command example
+#### 3.2 Command Example
 
 ```shell
 lm75b -i
