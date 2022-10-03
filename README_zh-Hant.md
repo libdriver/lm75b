@@ -51,6 +51,8 @@ LibDriver LM75B是LibDriver推出的LM75B的全功能驅動，該驅動提供溫
 #### example basic
 
 ```C
+#include "driver_lm75b_basic.h"
+
 uint8_t res;
 uint8_t i;
 float t;
@@ -89,6 +91,8 @@ return 0;
 #### example interrupt
 
 ```C
+#include "driver_lm75b_interrupt.h"
+
 uint8_t res;
 uint8_t i;
 float t;

@@ -51,6 +51,8 @@ LibDriver LM75B는 LibDriver에서 출시한 LM75B의 전체 기능 드라이버
 #### example basic
 
 ```C
+#include "driver_lm75b_basic.h"
+
 uint8_t res;
 uint8_t i;
 float t;
@@ -89,6 +91,8 @@ return 0;
 #### example interrupt
 
 ```c
+#include "driver_lm75b_interrupt.h"
+
 uint8_t res;
 uint8_t i;
 float t;
