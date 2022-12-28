@@ -116,10 +116,10 @@ typedef enum
 typedef struct lm75b_handle_s
 {
     uint8_t iic_addr;                                                                   /**< iic device address */
-    uint8_t (*iic_init)(void);                                                          /**< point to a iic_init function address */
-    uint8_t (*iic_deinit)(void);                                                        /**< point to a iic_deinit function address */
-    uint8_t (*iic_read)(uint8_t addr, uint8_t reg, uint8_t *buf, uint16_t len);         /**< point to a iic_read function address */
-    uint8_t (*iic_write)(uint8_t addr, uint8_t reg, uint8_t *buf, uint16_t len);        /**< point to a iic_write function address */
+    uint8_t (*iic_init)(void);                                                          /**< point to an iic_init function address */
+    uint8_t (*iic_deinit)(void);                                                        /**< point to an iic_deinit function address */
+    uint8_t (*iic_read)(uint8_t addr, uint8_t reg, uint8_t *buf, uint16_t len);         /**< point to an iic_read function address */
+    uint8_t (*iic_write)(uint8_t addr, uint8_t reg, uint8_t *buf, uint16_t len);        /**< point to an iic_write function address */
     void (*delay_ms)(uint32_t ms);                                                      /**< point to a delay_ms function address */
     void (*debug_print)(const char *const fmt, ...);                                    /**< point to a debug_print function address */
     uint8_t inited;                                                                     /**< inited flag */
@@ -154,7 +154,7 @@ typedef struct lm75b_info_s
 
 /**
  * @brief     initialize lm75b_handle_t structure
- * @param[in] HANDLE points to a lm75b handle structure
+ * @param[in] HANDLE points to an lm75b handle structure
  * @param[in] STRUCTURE is lm75b_handle_t
  * @note      none
  */
@@ -162,39 +162,39 @@ typedef struct lm75b_info_s
 
 /**
  * @brief     link iic_init function
- * @param[in] HANDLE points to a lm75b handle structure
- * @param[in] FUC points to a iic_init function address
+ * @param[in] HANDLE points to an lm75b handle structure
+ * @param[in] FUC points to an iic_init function address
  * @note      none
  */
 #define DRIVER_LM75B_LINK_IIC_INIT(HANDLE, FUC)    (HANDLE)->iic_init = FUC
 
 /**
  * @brief     link iic_deinit function
- * @param[in] HANDLE points to a lm75b handle structure
- * @param[in] FUC points to a iic_deinit function address
+ * @param[in] HANDLE points to an lm75b handle structure
+ * @param[in] FUC points to an iic_deinit function address
  * @note      none
  */
 #define DRIVER_LM75B_LINK_IIC_DEINIT(HANDLE, FUC)  (HANDLE)->iic_deinit = FUC
 
 /**
  * @brief     link iic_read function
- * @param[in] HANDLE points to a lm75b handle structure
- * @param[in] FUC points to a iic_read function address
+ * @param[in] HANDLE points to an lm75b handle structure
+ * @param[in] FUC points to an iic_read function address
  * @note      none
  */
 #define DRIVER_LM75B_LINK_IIC_READ(HANDLE, FUC)    (HANDLE)->iic_read = FUC
 
 /**
  * @brief     link iic_write function
- * @param[in] HANDLE points to a lm75b handle structure
- * @param[in] FUC points to a iic_write function address
+ * @param[in] HANDLE points to an lm75b handle structure
+ * @param[in] FUC points to an iic_write function address
  * @note      none
  */
 #define DRIVER_LM75B_LINK_IIC_WRITE(HANDLE, FUC)   (HANDLE)->iic_write = FUC
 
 /**
  * @brief     link delay_ms function
- * @param[in] HANDLE points to a lm75b handle structure
+ * @param[in] HANDLE points to an lm75b handle structure
  * @param[in] FUC points to a delay_ms function address
  * @note      none
  */
@@ -202,7 +202,7 @@ typedef struct lm75b_info_s
 
 /**
  * @brief     link debug_print function
- * @param[in] HANDLE points to a lm75b handle structure
+ * @param[in] HANDLE points to an lm75b handle structure
  * @param[in] FUC points to a debug_print function address
  * @note      none
  */
@@ -221,7 +221,7 @@ typedef struct lm75b_info_s
 
 /**
  * @brief      get chip's information
- * @param[out] *info points to a lm75b info structure
+ * @param[out] *info points to an lm75b info structure
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -231,7 +231,7 @@ uint8_t lm75b_info(lm75b_info_t *info);
 
 /**
  * @brief     set the iic address pin
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] addr_pin is the chip iic address pin
  * @return    status code
  *            - 0 success
@@ -242,7 +242,7 @@ uint8_t lm75b_set_addr_pin(lm75b_handle_t *handle, lm75b_address_t addr_pin);
 
 /**
  * @brief      get the iic address pin
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[out] *addr_pin points to a chip iic address pin buffer
  * @return      status code
  *              - 0 success
@@ -253,7 +253,7 @@ uint8_t lm75b_get_addr_pin(lm75b_handle_t *handle, lm75b_address_t *addr_pin);
 
 /**
  * @brief     initialize the chip
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @return    status code
  *            - 0 success
  *            - 1 iic initialization failed
@@ -265,7 +265,7 @@ uint8_t lm75b_init(lm75b_handle_t *handle);
 
 /**
  * @brief     close the chip
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @return    status code
  *            - 0 success
  *            - 1 iic deinit failed
@@ -277,7 +277,7 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle);
 
 /**
  * @brief      read data from the chip
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[out] *raw points to a raw temperature buffer
  * @param[out] *s points to a converted temperature buffer
  * @return     status code
@@ -291,7 +291,7 @@ uint8_t lm75b_read(lm75b_handle_t *handle, uint16_t *raw, float *s);
 
 /**
  * @brief     set the chip mode
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] mode is the chip mode
  * @return    status code
  *            - 0 success
@@ -304,7 +304,7 @@ uint8_t lm75b_set_mode(lm75b_handle_t *handle, lm75b_mode_t mode);
 
 /**
  * @brief      get the chip mode
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[out] *mode points to a chip mode buffer
  * @return     status code
  *             - 0 success
@@ -328,7 +328,7 @@ uint8_t lm75b_get_mode(lm75b_handle_t *handle, lm75b_mode_t *mode);
 
 /**
  * @brief     set the chip fault queue
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] fault_queue is the chip fault queue
  * @return    status code
  *            - 0 success
@@ -341,7 +341,7 @@ uint8_t lm75b_set_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t fault_
 
 /**
  * @brief      get the chip fault queue
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[out] *fault_queue points to a chip fault queue buffer
  * @return     status code
  *             - 0 success
@@ -354,7 +354,7 @@ uint8_t lm75b_get_fault_queue(lm75b_handle_t *handle, lm75b_fault_queue_t *fault
 
 /**
  * @brief      convert the hysteresis value to the register data
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[in]  c is the hysteresis value
  * @param[out] *reg points to a register data buffer
  * @return      status code
@@ -367,7 +367,7 @@ uint8_t lm75b_hysteresis_convert_to_register(lm75b_handle_t *handle, float c, ui
 
 /**
  * @brief      convert the register raw data to the hysteresis value
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[in]  reg is the register raw data
  * @param[out] *c points to a converted hysteresis value buffer
  * @return      status code
@@ -380,7 +380,7 @@ uint8_t lm75b_hysteresis_convert_to_data(lm75b_handle_t *handle, uint16_t reg, f
 
 /**
  * @brief     set the hysteresis value
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] hysteresis is the hysteresis value
  * @return    status code
  *            - 0 success
@@ -393,7 +393,7 @@ uint8_t lm75b_set_hysteresis(lm75b_handle_t *handle, uint16_t hysteresis);
 
 /**
  * @brief      get the hysteresis value
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[out] *hysteresis points to a hysteresis value buffer
  * @return     status code
  *             - 0 success
@@ -406,7 +406,7 @@ uint8_t lm75b_get_hysteresis(lm75b_handle_t *handle, uint16_t *hysteresis);
 
 /**
  * @brief      convert the over temperature threshold to the register data
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[in]  c is the over temperature threshold
  * @param[out] *reg points to a register data buffer
  * @return      status code
@@ -419,7 +419,7 @@ uint8_t lm75b_over_temperature_threshold_convert_to_register(lm75b_handle_t *han
 
 /**
  * @brief      convert the register raw data to the over temperature threshold
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[in]  reg is the register raw data
  * @param[out] *c points to a converted over temperature threshold buffer
  * @return      status code
@@ -432,7 +432,7 @@ uint8_t lm75b_over_temperature_threshold_convert_to_data(lm75b_handle_t *handle,
 
 /**
  * @brief     set the over temperature threshold
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] threshold is the over temperature threshold
  * @return    status code
  *            - 0 success
@@ -445,8 +445,8 @@ uint8_t lm75b_set_over_temperature_threshold(lm75b_handle_t *handle, uint16_t th
 
 /**
  * @brief      get the over temperature threshold
- * @param[in]  *handle points to a lm75b handle structure
- * @param[out] *threshold points to a over temperature threshold buffer
+ * @param[in]  *handle points to an lm75b handle structure
+ * @param[out] *threshold points to an over temperature threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 get over temperature threshold failed
@@ -458,7 +458,7 @@ uint8_t lm75b_get_over_temperature_threshold(lm75b_handle_t *handle, uint16_t *t
 
 /**
  * @brief     set the chip os polarity
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] polarity is the os polarity
  * @return    status code
  *            - 0 success
@@ -471,8 +471,8 @@ uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polari
 
 /**
  * @brief      get the chip os polarity
- * @param[in]  *handle points to a lm75b handle structure
- * @param[out] *polarity points to a os polarity buffer
+ * @param[in]  *handle points to an lm75b handle structure
+ * @param[out] *polarity points to an os polarity buffer
  * @return     status code
  *             - 0 success
  *             - 1 get os polarity failed
@@ -484,7 +484,7 @@ uint8_t lm75b_get_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t *polar
 
 /**
  * @brief     set the chip interrupt mode
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] mode is the interrupt mode
  * @return    status code
  *            - 0 success
@@ -497,8 +497,8 @@ uint8_t lm75b_set_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
 
 /**
  * @brief      get the chip interrupt mode
- * @param[in]  *handle points to a lm75b handle structure
- * @param[out] *mode points to a interrupt mode buffer
+ * @param[in]  *handle points to an lm75b handle structure
+ * @param[out] *mode points to an interrupt mode buffer
  * @return     status code
  *             - 0 success
  *             - 1 get interrupt mode failed
@@ -521,7 +521,7 @@ uint8_t lm75b_get_interrupt_mode(lm75b_handle_t *handle, lm75b_os_operation_mode
 
 /**
  * @brief     set the chip register
- * @param[in] *handle points to a lm75b handle structure
+ * @param[in] *handle points to an lm75b handle structure
  * @param[in] reg is the iic register address
  * @param[in] *buf points to a data buffer
  * @param[in] len is the data buffer length
@@ -536,7 +536,7 @@ uint8_t lm75b_set_reg(lm75b_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_
 
 /**
  * @brief      get the chip register
- * @param[in]  *handle points to a lm75b handle structure
+ * @param[in]  *handle points to an lm75b handle structure
  * @param[in]  reg is the iic register address
  * @param[out] *buf points to a data buffer
  * @param[in]  len is the data buffer length

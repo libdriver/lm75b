@@ -149,13 +149,13 @@ return 0;
 
 ### 文檔
 
-在線文檔: https://www.libdriver.com/docs/lm75b/index.html
+在線文檔: [https://www.libdriver.com/docs/lm75b/index.html](https://www.libdriver.com/docs/lm75b/index.html)。
 
-離線文檔: /doc/html/index.html
+離線文檔: /doc/html/index.html。
 
 ### 貢獻
 
-請聯繫lishifenging@outlook.com
+請參攷CONTRIBUTING.md。
 
 ### 版權
 
@@ -171,4 +171,4 @@ MIT 許可證（MIT）
 
 ### 聯繫我們
 
-請聯繫lishifenging@outlook.com
+請聯繫lishifenging@outlook.com。

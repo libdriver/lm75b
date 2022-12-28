@@ -84,7 +84,7 @@ uint8_t lm75b_interrupt_test(lm75b_address_t addr, lm75b_os_operation_mode_t mod
         lm75b_interface_debug_print("lm75b: chip is %s.\n", info.chip_name);
         lm75b_interface_debug_print("lm75b: manufacturer is %s.\n", info.manufacturer_name);
         lm75b_interface_debug_print("lm75b: interface is %s.\n", info.interface);
-        lm75b_interface_debug_print("lm75b: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
+        lm75b_interface_debug_print("lm75b: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
         lm75b_interface_debug_print("lm75b: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         lm75b_interface_debug_print("lm75b: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         lm75b_interface_debug_print("lm75b: max current is %0.2fmA.\n", info.max_current_ma);
@@ -205,7 +205,7 @@ uint8_t lm75b_interrupt_test(lm75b_address_t addr, lm75b_os_operation_mode_t mod
             
             return 1;
         }
-        lm75b_interface_debug_print("lm75b: temperature is %0.3f.\n", s);
+        lm75b_interface_debug_print("lm75b: temperature is %0.3fC.\n", s);
         if (s > high_threshold)
         {
             lm75b_interface_debug_print("lm75b: temperature is over high threshold.\n");

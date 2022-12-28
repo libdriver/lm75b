@@ -40,12 +40,13 @@
 #include "driver_lm75b_read_test.h"
 #include "driver_lm75b_interrupt_test.h"
 #include "gpio.h"
+#include <getopt.h>
 #include <stdlib.h>
 
 /**
  * @brief global var definition
  */
-uint8_t g_flag;            /**< interrupt flag */
+volatile uint8_t g_flag;            /**< interrupt flag */
 
 /**
  * @brief     lm75b full function
@@ -59,521 +60,402 @@ uint8_t g_flag;            /**< interrupt flag */
  */
 uint8_t lm75b(uint8_t argc, char **argv)
 {
+    int c;
+    int longindex = 0;
+    const char short_options[] = "hipe:t:";
+    const struct option long_options[] =
+    {
+        {"help", no_argument, NULL, 'h'},
+        {"information", no_argument, NULL, 'i'},
+        {"port", no_argument, NULL, 'p'},
+        {"example", required_argument, NULL, 'e'},
+        {"test", required_argument, NULL, 't'},
+        {"addr", required_argument, NULL, 1},
+        {"high-threshold", required_argument, NULL, 2},
+        {"low-threshold", required_argument, NULL, 3},
+        {"mode", required_argument, NULL, 4},
+        {"times", required_argument, NULL, 5},
+        {NULL, 0, NULL, 0},
+    };
+    char type[32] = "unknow";
+    uint32_t times = 3;
+    lm75b_address_t addr = LM75B_ADDRESS_A000;
+    lm75b_os_operation_mode_t mode = LM75B_OS_OPERATION_INTERRUPT;
+    float high_threshold = 28.0f;
+    float low_threshold = 25.0f;
+    
+    /* if no params */
     if (argc == 1)
     {
+        /* goto the help */
         goto help;
     }
-    else if (argc == 2)
+    
+    /* init 0 */
+    optind = 0;
+    
+    /* parse */
+    do
     {
-        if (strcmp("-i", argv[1]) == 0)
+        /* parse the args */
+        c = getopt_long(argc, argv, short_options, long_options, &longindex);
+        
+        /* judge the result */
+        switch (c)
         {
-            lm75b_info_t info;
-            
-            /* print lm75b info */
-            lm75b_info(&info);
-            lm75b_interface_debug_print("lm75b: chip is %s.\n", info.chip_name);
-            lm75b_interface_debug_print("lm75b: manufacturer is %s.\n", info.manufacturer_name);
-            lm75b_interface_debug_print("lm75b: interface is %s.\n", info.interface);
-            lm75b_interface_debug_print("lm75b: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
-            lm75b_interface_debug_print("lm75b: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
-            lm75b_interface_debug_print("lm75b: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
-            lm75b_interface_debug_print("lm75b: max current is %0.2fmA.\n", info.max_current_ma);
-            lm75b_interface_debug_print("lm75b: max temperature is %0.1fC.\n", info.temperature_max);
-            lm75b_interface_debug_print("lm75b: min temperature is %0.1fC.\n", info.temperature_min);
-            
-            return 0;
-        }
-        else if (strcmp("-p", argv[1]) == 0)
-        {
-            /* print pin connection */
-            lm75b_interface_debug_print("lm75b: SCL connected to GPIO3(BCM).\n");
-            lm75b_interface_debug_print("lm75b: SDA connected to GPIO2(BCM).\n");
-            lm75b_interface_debug_print("lm75b: OS connected to GPIO17(BCM).\n");
-            
-            return 0;
-        }
-        else if (strcmp("-h", argv[1]) == 0)
-        {
-            /* show lm75b help */
-            
-            help:
-            
-            lm75b_interface_debug_print("lm75b -i\n\tshow lm75b chip and driver information.\n");
-            lm75b_interface_debug_print("lm75b -h\n\tshow lm75b help.\n");
-            lm75b_interface_debug_print("lm75b -p\n\tshow lm75b pin connections of the current board.\n");
-            lm75b_interface_debug_print("lm75b -t reg -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)\n\trun lm75b register test.\n");
-            lm75b_interface_debug_print("lm75b -t read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)\n\trun lm75b read test."
-                                        "times means test times.\n");
-            lm75b_interface_debug_print("lm75b -t int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR | INTERRUPT) "
-                                        "<lowthreshold> <highthreshold>\n\t");
-            lm75b_interface_debug_print("run lm75b interrupt test.times means test times.lowthreshold means low interrupt threshold."
-                                        "highthreshold means high interrupt threshold.\n");
-            lm75b_interface_debug_print("lm75b -c read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)\n\trun lm75b read function."
-                                        "times means read times.\n");
-            lm75b_interface_debug_print("lm75b -c int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) "
-                                        "<lowthreshold> <highthreshold>\n\t");
-            lm75b_interface_debug_print("run lm75b interrupt function.times means read times.lowthreshold means low interrupt threshold."
-                                        "highthreshold means high interrupt threshold.");
-            
-            return 0;
-        }
-        else
-        {
-            return 5;
-        }
-    }
-    else if (argc == 5)
-    {
-        /* run test */
-        if (strcmp("-t", argv[1]) == 0)
-        {
-             /* reg test */
-            if (strcmp("reg", argv[2]) == 0)
+            /* help */
+            case 'h' :
             {
-                lm75b_address_t addr;
+                /* set the type */
+                memset(type, 0, sizeof(char) * 32);
+                snprintf(type, 32, "h");
                 
-                if (strcmp("-a", argv[3]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("0", argv[4]) == 0)
+                break;
+            }
+            
+            /* information */
+            case 'i' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 32);
+                snprintf(type, 32, "i");
+                
+                break;
+            }
+            
+            /* port */
+            case 'p' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 32);
+                snprintf(type, 32, "p");
+                
+                break;
+            }
+            
+            /* example */
+            case 'e' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 32);
+                snprintf(type, 32, "e_%s", optarg);
+                
+                break;
+            }
+            
+            /* test */
+            case 't' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 32);
+                snprintf(type, 32, "t_%s", optarg);
+                
+                break;
+            }
+            
+            /* addr */
+            case 1 :
+            {
+                if (strcmp("0", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A000;
                 }
-                else if (strcmp("1", argv[4]) == 0)
+                else if (strcmp("1", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A001;
                 }
-                else if (strcmp("2", argv[4]) == 0)
+                else if (strcmp("2", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A010;
                 }
-                else if (strcmp("3", argv[4]) == 0)
+                else if (strcmp("3", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A011;
                 }
-                else if (strcmp("4", argv[4]) == 0)
+                else if (strcmp("4", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A100;
                 }
-                else if (strcmp("5", argv[4]) == 0)
+                else if (strcmp("5", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A101;
                 }
-                else if (strcmp("6", argv[4]) == 0)
+                else if (strcmp("6", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A110;
                 }
-                else if (strcmp("7", argv[4]) == 0)
+                else if (strcmp("7", optarg) == 0)
                 {
                     addr = LM75B_ADDRESS_A111;
                 }
                 else
                 {
-                    lm75b_interface_debug_print("lm75b: iic address is invalid.\n");
-                    
                     return 5;
                 }
-                /* run reg test */
-                if (lm75b_register_test(addr) != 0)
+                
+                break;
+            }
+            
+            /* high threshold */
+            case 2 :
+            {
+                high_threshold = atof(optarg);
+                
+                break;
+            }
+             
+            /* low threshold */
+            case 3 :
+            {
+                low_threshold = atof(optarg);
+                
+                break;
+            }
+            
+            /* mode */
+            case 4 :
+            {
+                /* set the mode */
+                if (strcmp("CMP", optarg) == 0)
                 {
-                    return 1;
+                    mode = LM75B_OS_OPERATION_COMPARATOR;
+                }
+                else if (strcmp("INT", optarg) == 0)
+                {
+                    mode = LM75B_OS_OPERATION_INTERRUPT;
                 }
                 else
                 {
-                    return 0;
+                    return 5;
                 }
+                
+                break;
             }
-            /* param is invalid */
-            else
+            
+            /* running times */
+            case 5 :
+            {
+                /* set the times */
+                times = atol(optarg);
+                
+                break;
+            } 
+            
+            /* the end */
+            case -1 :
+            {
+                break;
+            }
+            
+            /* others */
+            default :
             {
                 return 5;
             }
         }
-        /* param is invalid */
+    } while (c != -1);
+
+    /* run the function */
+    if (strcmp("t_reg", type) == 0)
+    {
+        /* run reg test */
+        if (lm75b_register_test(addr) != 0)
+        {
+            return 1;
+        }
         else
         {
-            return 5;
+            return 0;
         }
     }
-    else if (argc == 6)
+    else if (strcmp("t_read", type) == 0)
     {
-        /* run test */
-        if (strcmp("-t", argv[1]) == 0)
+        /* run read test */
+        if (lm75b_read_test(addr, times) != 0)
         {
-             /* read test */
-            if (strcmp("read", argv[2]) == 0)
-            {
-                lm75b_address_t addr;
-                
-                if (strcmp("-a", argv[4]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("0", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A000;
-                }
-                else if (strcmp("1", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A001;
-                }
-                else if (strcmp("2", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A010;
-                }
-                else if (strcmp("3", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A011;
-                }
-                else if (strcmp("4", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A100;
-                }
-                else if (strcmp("5", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A101;
-                }
-                else if (strcmp("6", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A110;
-                }
-                else if (strcmp("7", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A111;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: iic address is invalid.\n");
-                    
-                    return 5;
-                }
-                
-                /* run read test */
-                if (lm75b_read_test(addr, atoi(argv[3])) != 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            /* param is invalid */
-            else
-            {
-                return 5;
-            }
+            return 1;
         }
-        /* run function */
-        else if (strcmp("-c", argv[1]) == 0)
+        else
         {
-            /* read function */
-            if (strcmp("read", argv[2]) == 0)
+            return 0;
+        }
+    }
+    else if (strcmp("t_int", type) == 0)
+    {
+        uint8_t res;
+        
+        /* gpio init */
+        res = gpio_interrupt_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+        
+        /* run interrupt test */
+        res = lm75b_interrupt_test(addr, mode, low_threshold, high_threshold, times);
+        if (res != 0)
+        {
+            (void)gpio_interrupt_deinit();
+            
+            return 1;
+        }
+        
+        /* gpio deinit */
+        (void)gpio_interrupt_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_read", type) == 0)
+    {
+        uint8_t res;
+        uint32_t i;
+        float t;
+        
+        /* basic init */
+        res = lm75b_basic_init(addr);
+        if (res != 0)
+        {
+            return 1;
+        }
+        
+        /* loop */
+        for (i = 0; i < times; i++)
+        {
+            /* delay 1000ms */
+            lm75b_interface_delay_ms(1000);
+            
+            /* read data */
+            res = lm75b_basic_read((float *)&t);
+            if (res != 0)
             {
-                uint8_t res;
-                uint32_t times;
-                uint32_t i;
-                float t;
-                lm75b_address_t addr;
-                
-                if (strcmp("-a", argv[4]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("0", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A000;
-                }
-                else if (strcmp("1", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A001;
-                }
-                else if (strcmp("2", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A010;
-                }
-                else if (strcmp("3", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A011;
-                }
-                else if (strcmp("4", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A100;
-                }
-                else if (strcmp("5", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A101;
-                }
-                else if (strcmp("6", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A110;
-                }
-                else if (strcmp("7", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A111;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: iic address is invalid.\n");
-                    
-                    return 5;
-                }
-                
-                res = lm75b_basic_init(addr);
-                if (res != 0)
-                {
-                    return 1;
-                }
-                times = atoi(argv[3]);
-                for (i = 0; i < times; i++)
-                {
-                    lm75b_interface_delay_ms(1000);
-                    res = lm75b_basic_read((float *)&t);
-                    if (res != 0)
-                    {
-                        (void)lm75b_basic_deinit();
-                        
-                        return 1;
-                    }
-                    lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
-                    lm75b_interface_debug_print("lm75b: temperature is %0.3fC.\n", t);
-                }
                 (void)lm75b_basic_deinit();
                 
-                return 0;
+                return 1;
             }
-            /* param is invalid */
-            else
-            {
-                return 5;
-            }
+            
+            /* output */
+            lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i + 1), (uint32_t)times);
+            lm75b_interface_debug_print("lm75b: temperature is %0.3fC.\n", t);
         }
-        /* param is invalid */
-        else
-        {
-            return 5;
-        }
+        (void)lm75b_basic_deinit();
+        
+        return 0;
     }
-    else if (argc == 10)
+    else if (strcmp("e_int", type) == 0)
     {
-        /* run test */
-        if (strcmp("-t", argv[1]) == 0)
+        uint8_t res;
+        uint32_t i;
+        float t;
+        
+        /* gpio init */
+        res = gpio_interrupt_init();
+        if (res != 0)
         {
-             /* int */
-            if (strcmp("int", argv[2]) == 0)
-            {
-                uint8_t res;
-                lm75b_address_t addr;
-                lm75b_os_operation_mode_t mode;
-                
-                if (strcmp("-a", argv[4]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("0", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A000;
-                }
-                else if (strcmp("1", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A001;
-                }
-                else if (strcmp("2", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A010;
-                }
-                else if (strcmp("3", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A011;
-                }
-                else if (strcmp("4", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A100;
-                }
-                else if (strcmp("5", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A101;
-                }
-                else if (strcmp("6", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A110;
-                }
-                else if (strcmp("7", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A111;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: iic address is invalid.\n");
-                    
-                    return 5;
-                }
-                if (strcmp("-m", argv[6]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("INTERRUPT", argv[7]) == 0)
-                {
-                    mode = LM75B_OS_OPERATION_INTERRUPT;
-                }
-                else if (strcmp("COMPARATOR", argv[7]) == 0)
-                {
-                    mode = LM75B_OS_OPERATION_COMPARATOR;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: interrupt mode is invalid.\n");
-                    
-                    return 5;
-                }
-                res = gpio_interrupt_init();
-                if (res != 0)
-                {
-                    return 1;
-                }
-                res = lm75b_interrupt_test(addr, mode, (float)atof(argv[8]), (float)atof(argv[9]), atoi(argv[3]));
-                if (res != 0)
-                {
-                    (void)gpio_interrupt_deinit();
-                    
-                    return 1;
-                }
-                (void)gpio_interrupt_deinit();
-                
-                return 0;
-            }
-            /* param is invalid */
-            else
-            {
-                return 5;
-            }
+            return 1;
         }
-        /* run function */
-        else if (strcmp("-c", argv[1]) == 0)
+        
+        /* interrupt init */
+        res = lm75b_interrupt_init(addr, mode, low_threshold, high_threshold);
+        if (res != 0)
         {
-             /* int */
-            if (strcmp("int", argv[2]) == 0)
+            (void)gpio_interrupt_deinit();
+            
+            return 1;
+        }
+        
+        /* loop */
+        g_flag = 0;
+        for (i = 0; i < times; i++)
+        {
+            /* delay 1000ms */
+            lm75b_interface_delay_ms(1000);
+            
+            /* read data */
+            res = lm75b_interrupt_read((float *)&t);
+            if (res != 0)
             {
-                uint8_t res;
-                uint32_t times;
-                uint32_t i;
-                float t;
-                lm75b_address_t addr;
-                lm75b_os_operation_mode_t mode;
-                
-                if (strcmp("-a", argv[4]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("0", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A000;
-                }
-                else if (strcmp("1", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A001;
-                }
-                else if (strcmp("2", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A010;
-                }
-                else if (strcmp("3", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A011;
-                }
-                else if (strcmp("4", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A100;
-                }
-                else if (strcmp("5", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A101;
-                }
-                else if (strcmp("6", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A110;
-                }
-                else if (strcmp("7", argv[5]) == 0)
-                {
-                    addr = LM75B_ADDRESS_A111;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: iic address is invalid.\n");
-                    
-                    return 5;
-                }
-                if (strcmp("-m", argv[6]) != 0)
-                {
-                    return 5;
-                }
-                if (strcmp("INTERRUPT", argv[7]) == 0)
-                {
-                    mode = LM75B_OS_OPERATION_INTERRUPT;
-                }
-                else if (strcmp("COMPARATOR", argv[7]) == 0)
-                {
-                    mode = LM75B_OS_OPERATION_COMPARATOR;
-                }
-                else
-                {
-                    lm75b_interface_debug_print("lm75b: interrupt mode is invalid.\n");
-                    
-                    return 5;
-                }
-                times = atoi(argv[3]);
-                res = gpio_interrupt_init();
-                if (res != 0)
-                {
-                    return 1;
-                }
-                res = lm75b_interrupt_init(addr, mode, (float)atof(argv[8]), (float)atof(argv[9]));
-                if (res != 0)
-                {
-                    (void)gpio_interrupt_deinit();
-                    
-                    return 1;
-                }
-                g_flag = 0;
-                for (i = 0; i < times; i++)
-                {
-                    lm75b_interface_delay_ms(1000);
-                    res = lm75b_interrupt_read((float *)&t);
-                    if (res != 0)
-                    {
-                        (void)gpio_interrupt_deinit();
-                        (void)lm75b_interrupt_deinit();
-                        
-                        return 1;
-                    }
-                    lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
-                    lm75b_interface_debug_print("lm75b: read is %0.3fC.\n", t);
-                    if (g_flag != 0)
-                    {
-                        lm75b_interface_debug_print("lm75b: find interrupt.\n");
-                        
-                        break;
-                    }
-                }
                 (void)gpio_interrupt_deinit();
                 (void)lm75b_interrupt_deinit();
                 
-                return 0;
+                return 1;
             }
-            /* param is invalid */
-            else
+            
+            /* output */
+            lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i + 1), (uint32_t)times);
+            lm75b_interface_debug_print("lm75b: read is %0.3fC.\n", t);
+            if (g_flag != 0)
             {
-                return 5;
+                lm75b_interface_debug_print("lm75b: find interrupt.\n");
+                
+                break;
             }
         }
-        /* param is invalid */
-        else
-        {
-            return 5;
-        }
+        
+        /* deinit */
+        (void)gpio_interrupt_deinit();
+        (void)lm75b_interrupt_deinit();
+        
+        return 0;
     }
-    /* param is invalid */
+    else if (strcmp("h", type) == 0)
+    {
+        help:
+        lm75b_interface_debug_print("Usage:\n");
+        lm75b_interface_debug_print("  lm75b (-i | --information)\n");
+        lm75b_interface_debug_print("  lm75b (-h | --help)\n");
+        lm75b_interface_debug_print("  lm75b (-p | --port)\n");
+        lm75b_interface_debug_print("  lm75b (-t reg | --test=reg) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>]\n");
+        lm75b_interface_debug_print("  lm75b (-t read | --test=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]\n");
+        lm75b_interface_debug_print("  lm75b (-t int | --test=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]\n");
+        lm75b_interface_debug_print("        [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]\n");
+        lm75b_interface_debug_print("  lm75b (-e read | --example=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]\n");
+        lm75b_interface_debug_print("  lm75b (-e int | --example=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]\n");
+        lm75b_interface_debug_print("        [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]\n");
+        lm75b_interface_debug_print("\n");
+        lm75b_interface_debug_print("Options:\n");
+        lm75b_interface_debug_print("      --addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>\n");
+        lm75b_interface_debug_print("                                 Set the addr pin.([default: 0])\n");
+        lm75b_interface_debug_print("  -e <read | int>, --example=<read | int>\n");
+        lm75b_interface_debug_print("                                 Run the driver example.\n");
+        lm75b_interface_debug_print("  -h, --help                     Show the help.\n");
+        lm75b_interface_debug_print("      --high-threshold=<high>    Set the interrupt high threshold.([default: 28.0f])\n");
+        lm75b_interface_debug_print("  -i, --information              Show the chip information.\n");
+        lm75b_interface_debug_print("      --low-threshold=<low>      Set the interrupt low threshold.([default: 25.0f])\n");
+        lm75b_interface_debug_print("      --mode=<CMP | INT>         Set the interrupt mode.([default: INT])\n");
+        lm75b_interface_debug_print("  -p, --port                     Display the pin connections of the current board.\n");
+        lm75b_interface_debug_print("  -t <reg | read | init>, --test=<reg | read | int>\n");
+        lm75b_interface_debug_print("                                 Run the driver test.\n");
+        lm75b_interface_debug_print("      --times=<num>              Set the running times.([default: 3])\n");
+
+        return 0;
+    }
+    else if (strcmp("i", type) == 0)
+    {
+        lm75b_info_t info;
+        
+        /* print lm75b info */
+        lm75b_info(&info);
+        lm75b_interface_debug_print("lm75b: chip is %s.\n", info.chip_name);
+        lm75b_interface_debug_print("lm75b: manufacturer is %s.\n", info.manufacturer_name);
+        lm75b_interface_debug_print("lm75b: interface is %s.\n", info.interface);
+        lm75b_interface_debug_print("lm75b: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
+        lm75b_interface_debug_print("lm75b: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
+        lm75b_interface_debug_print("lm75b: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
+        lm75b_interface_debug_print("lm75b: max current is %0.2fmA.\n", info.max_current_ma);
+        lm75b_interface_debug_print("lm75b: max temperature is %0.1fC.\n", info.temperature_max);
+        lm75b_interface_debug_print("lm75b: min temperature is %0.1fC.\n", info.temperature_min);
+        
+        return 0;
+    }
+    else if (strcmp("p", type) == 0)
+    {
+        /* print pin connection */
+        lm75b_interface_debug_print("lm75b: SCL connected to GPIO3(BCM).\n");
+        lm75b_interface_debug_print("lm75b: SDA connected to GPIO2(BCM).\n");
+        lm75b_interface_debug_print("lm75b: OS connected to GPIO17(BCM).\n");
+        
+        return 0;
+    }
     else
     {
         return 5;
