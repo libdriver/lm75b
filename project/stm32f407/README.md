@@ -2,55 +2,93 @@
 
 #### 1.1 Chip Info
 
-chip name : STM32F407ZGT6.
+Chip Name: STM32F407ZGT6.
 
-extern oscillator : 8MHz.
+Extern Oscillator: 8MHz.
 
-uart pin: TX/RX PA9/PA10.
+UART Pin: TX/RX PA9/PA10.
 
-iic pin: SCL/SDA PB8/PB9.
+IIC Pin: SCL/SDA PB8/PB9.
 
-gpio pin: INT PB0.
+GPIO Pin: INT PB0.
 
-### 2. Shell
+### 2. Development and Debugging
 
-#### 2.1 Shell Parameter
+#### 2.1 Integrated Development Environment
 
-baud rate: 115200.
+LidDriver provides both Keil and IAR integrated development environment projects.
 
-data bits : 8.
+MDK is the Keil ARM project and your Keil version must be 5 or higher.Keil ARM project needs STMicroelectronics STM32F4 Series Device Family Pack and you can download from https://www.keil.com/dd2/stmicroelectronics/stm32f407zgtx.
 
-stop bits: 1.
+EW is the IAR ARM project and your IAR version must be 9 or higher.
 
-parity: none.
+#### 2.2 Serial Port Parameter
 
-flow control: none.
+Baud Rate: 115200.
+
+Data Bits : 8.
+
+Stop Bits: 1.
+
+Parity: None.
+
+Flow Control: None.
+
+#### 2.3 Serial Port Assistant
+
+We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g. the displayed content does not divide lines), please modify the configuration of your serial port assistant or replace one that supports '\n' parsing.
 
 ### 3. LM75B
 
 #### 3.1 Command Instruction
 
-​          lm75b is a basic command which can test all lm75b driver function:
+1. Show lm75b chip and driver information.
 
-​           -i        show lm75b chip and driver information.
+   ```shell
+   lm75b (-i | --information)
+   ```
 
-​           -h       show lm75b help.
+2. Show lm75b help.
 
-​           -p       show lm75b pin connections of the current board.
+   ```shell
+   lm75b (-h | --help)
+   ```
 
-​           -t (reg -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) | read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) | int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>) 
+3. Show lm75b pin connections of the current board.
 
-​           -t reg -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)        run lm75b register test.
+   ```shell
+   lm75b (-p | --port)
+   ```
 
-​           -t read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)         run lm75b read test. times means test times.
+4. Run lm75b register test.
 
-​           -t int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>        run lm75b interrupt test. times means test times. lowthreshold means low interrupt threshold. highthreshold means high interrupt threshold.
+   ```shell
+   lm75b (-t reg | --test=reg) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>]
+   ```
 
-​           -c (read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) | int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>)
+5. Run lm75b read test, num means test times.
 
-​           -c read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)        run lm75b read function. times means read times.
+   ```shell
+   lm75b (-t read | --test=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+   ```
 
-​           -c int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>        run lm75b interrupt function. times means read times. lowthreshold means low interrupt threshold. highthreshold means high interrupt threshold.
+6. Run lm75b interrupt test, num means test times, low means low interrupt threshold, high means high interrupt threshold.
+
+   ```shell
+   lm75b (-t int | --test=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>] [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]
+   ```
+
+7. Run lm75b read function, num means read times.
+
+   ```shell
+   lm75b (-e read | --example=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+   ```
+
+8. Run lm75b interrupt function, num means read times, low means low interrupt threshold, high means high interrupt threshold.
+
+   ```shell
+   lm75b (-e int | --example=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>] [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]
+   ```
 
 #### 3.2 Command Example
 
@@ -77,7 +115,7 @@ lm75b: OS connected to GPIOB PIN0.
 ```
 
 ```shell
-lm75b -t reg -a 0
+lm75b -t reg --addr=0
 
 lm75b: chip is NXP LM75B.
 lm75b: manufacturer is NXP.
@@ -148,7 +186,7 @@ lm75b: finish register test.
 ```
 
 ```shell
-lm75b -t read 3 -a 0
+lm75b -t read --addr=0 --times=3
 
 lm75b: chip is NXP LM75B.
 lm75b: manufacturer is NXP.
@@ -160,14 +198,14 @@ lm75b: max current is 10.00mA.
 lm75b: max temperature is 125.0C.
 lm75b: min temperature is -55.0C.
 lm75b: start read test.
-lm75b: temperature is 29.000.
-lm75b: temperature is 29.125.
-lm75b: temperature is 29.000.
+lm75b: temperature is 29.375C.
+lm75b: temperature is 29.375C.
+lm75b: temperature is 29.250C.
 lm75b: finish read test.
 ```
 
 ```shell
-lm75b -t int 3 -a 0 -m INTERRUPT 25.0 28.0
+lm75b -t int --addr=0 --times=3 --mode=INT --low-threshold=25.0 --high-threshold=28.0
 
 lm75b: chip is NXP LM75B.
 lm75b: manufacturer is NXP.
@@ -179,52 +217,62 @@ lm75b: max current is 10.00mA.
 lm75b: max temperature is 125.0C.
 lm75b: min temperature is -55.0C.
 lm75b: start interrupt test.
-lm75b: temperature is 28.500.
+lm75b: temperature is 29.125C.
 lm75b: temperature is over high threshold.
-lm75b: temperature is 28.625.
+lm75b: temperature is 29.125C.
 lm75b: temperature is over high threshold.
-lm75b: temperature is 28.625.
+lm75b: temperature is 29.125C.
 lm75b: temperature is over high threshold.
 lm75b: finish interrupt test.
 ```
 
 ```shell
-lm75b -c read 3 -a 0
+lm75b -e read --addr=0 --times=3
 
 lm75b: 1/3.
-lm75b: temperature is 28.875C.
+lm75b: temperature is 28.750C.
 lm75b: 2/3.
-lm75b: temperature is 28.750C.
+lm75b: temperature is 28.875C.
 lm75b: 3/3.
-lm75b: temperature is 28.750C.
+lm75b: temperature is 28.875C.
 ```
 
 ```shell
-lm75b -c int 3 -a 0 -m INTERRUPT 30.0 50.0
+lm75b -e int --addr=0 --times=3 --mode=INT --low-threshold=30.0 --high-threshold=50.0
 
 lm75b: 1/3.
-lm75b: read is 28.500C.
+lm75b: read is 28.625C.
 lm75b: find interrupt.
 ```
 
 ```shell
 lm75b -h
 
-lm75b -i
-	show lm75b chip and driver information.
-lm75b -h
-	show lm75b help.
-lm75b -p
-	show lm75b pin connections of the current board.
-lm75b -t reg -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)
-	run lm75b register test.
-lm75b -t read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)
-	run lm75b read test.times means test times.
-lm75b -t int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR | INTERRUPT) <lowthreshold> <highthreshold>
-	run lm75b interrupt test.times means test times.lowthreshold means low interrupt threshold.highthreshold means high interrupt threshold.
-lm75b -c read <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7)
-	run lm75b read function.times means read times.
-lm75b -c int <times> -a (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) -m (COMPARATOR  | INTERRUPT) <lowthreshold> <highthreshold>
-	run lm75b interrupt function.times means read times.lowthreshold means low interrupt threshold.highthreshold means high interrupt threshold.
+Usage:
+  lm75b (-i | --information)
+  lm75b (-h | --help)
+  lm75b (-p | --port)
+  lm75b (-t reg | --test=reg) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>]
+  lm75b (-t read | --test=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+  lm75b (-t int | --test=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+        [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]
+  lm75b (-e read | --example=read) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+  lm75b (-e int | --example=int) [--addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>] [--times=<num>]
+        [--mode=<CMP | INT>] [--low-threshold=<low>] [--high-threshold=<high>]
+
+Options:
+      --addr=<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>
+                                 Set the addr pin.([default: 0])
+  -e <read | int>, --example=<read | int>
+                                 Run the driver example.
+  -h, --help                     Show the help.
+      --high-threshold=<high>    Set the interrupt high threshold.([default: 28.0f])
+  -i, --information              Show the chip information.
+      --low-threshold=<low>      Set the interrupt low threshold.([default: 25.0f])
+      --mode=<CMP | INT>         Set the interrupt mode.([default: INT])
+  -p, --port                     Display the pin connections of the current board.
+  -t <reg | read | init>, --test=<reg | read | int>
+                                 Run the driver test.
+      --times=<num>              Set the running times.([default: 3])
 ```
 
