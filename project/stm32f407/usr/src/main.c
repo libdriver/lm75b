@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2015 - present LibDriver All rights reserved
- * 
+ *
  * The MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE. 
+ * SOFTWARE.
  *
  * @file      main.c
  * @brief     main source file
@@ -55,10 +55,9 @@ volatile uint16_t g_len;   /**< uart buffer length */
 volatile uint8_t g_flag;   /**< interrupt flag */
 
 /**
-  * @func   EXTI0_IRQHandler(void)
-  * @brief  EXTI0 
-  * @note   none
-  */
+ * @brief EXTI0
+ * @note  none
+ */
 void EXTI0_IRQHandler(void)
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
@@ -106,29 +105,29 @@ uint8_t lm75b(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 5},
         {NULL, 0, NULL, 0},
     };
-    char type[32] = "unknow";
+    char type[33] = "unknow";
     uint32_t times = 3;
     lm75b_address_t addr = LM75B_ADDRESS_A000;
     lm75b_os_operation_mode_t mode = LM75B_OS_OPERATION_INTERRUPT;
     float high_threshold = 28.0f;
     float low_threshold = 25.0f;
-    
+
     /* if no params */
     if (argc == 1)
     {
         /* goto the help */
         goto help;
     }
-    
+
     /* init 0 */
     optind = 0;
-    
+
     /* parse */
     do
     {
         /* parse the args */
         c = getopt_long(argc, argv, short_options, long_options, &longindex);
-        
+
         /* judge the result */
         switch (c)
         {
@@ -136,52 +135,52 @@ uint8_t lm75b(uint8_t argc, char **argv)
             case 'h' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "h");
-                
+
                 break;
             }
-            
+
             /* information */
             case 'i' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "i");
-                
+
                 break;
             }
-            
+
             /* port */
             case 'p' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "p");
-                
+
                 break;
             }
-            
+
             /* example */
             case 'e' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "e_%s", optarg);
-                
+
                 break;
             }
-            
+
             /* test */
             case 't' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "t_%s", optarg);
-                
+
                 break;
             }
-            
+
             /* addr */
             case 1 :
             {
@@ -221,26 +220,26 @@ uint8_t lm75b(uint8_t argc, char **argv)
                 {
                     return 5;
                 }
-                
+
                 break;
             }
-            
+
             /* high threshold */
             case 2 :
             {
                 high_threshold = atof(optarg);
-                
+
                 break;
             }
-             
+
             /* low threshold */
             case 3 :
             {
                 low_threshold = atof(optarg);
-                
+
                 break;
             }
-            
+
             /* mode */
             case 4 :
             {
@@ -257,25 +256,25 @@ uint8_t lm75b(uint8_t argc, char **argv)
                 {
                     return 5;
                 }
-                
+
                 break;
             }
-            
+
             /* running times */
             case 5 :
             {
                 /* set the times */
                 times = atol(optarg);
-                
+
                 break;
-            } 
-            
+            }
+
             /* the end */
             case -1 :
             {
                 break;
             }
-            
+
             /* others */
             default :
             {
@@ -312,26 +311,26 @@ uint8_t lm75b(uint8_t argc, char **argv)
     else if (strcmp("t_int", type) == 0)
     {
         uint8_t res;
-        
+
         /* gpio init */
         res = gpio_interrupt_init();
         if (res != 0)
         {
             return 1;
         }
-        
+
         /* run interrupt test */
         res = lm75b_interrupt_test(addr, mode, low_threshold, high_threshold, times);
         if (res != 0)
         {
             (void)gpio_interrupt_deinit();
-            
+
             return 1;
         }
-        
+
         /* gpio deinit */
         (void)gpio_interrupt_deinit();
-        
+
         return 0;
     }
     else if (strcmp("e_read", type) == 0)
@@ -339,35 +338,35 @@ uint8_t lm75b(uint8_t argc, char **argv)
         uint8_t res;
         uint32_t i;
         float t;
-        
+
         /* basic init */
         res = lm75b_basic_init(addr);
         if (res != 0)
         {
             return 1;
         }
-        
+
         /* loop */
         for (i = 0; i < times; i++)
         {
             /* delay 1000ms */
             lm75b_interface_delay_ms(1000);
-            
+
             /* read data */
             res = lm75b_basic_read((float *)&t);
             if (res != 0)
             {
                 (void)lm75b_basic_deinit();
-                
+
                 return 1;
             }
-            
+
             /* output */
             lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i + 1), (uint32_t)times);
             lm75b_interface_debug_print("lm75b: temperature is %0.3fC.\n", t);
         }
         (void)lm75b_basic_deinit();
-        
+
         return 0;
     }
     else if (strcmp("e_int", type) == 0)
@@ -375,55 +374,55 @@ uint8_t lm75b(uint8_t argc, char **argv)
         uint8_t res;
         uint32_t i;
         float t;
-        
+
         /* gpio init */
         res = gpio_interrupt_init();
         if (res != 0)
         {
             return 1;
         }
-        
+
         /* interrupt init */
         res = lm75b_interrupt_init(addr, mode, low_threshold, high_threshold);
         if (res != 0)
         {
             (void)gpio_interrupt_deinit();
-            
+
             return 1;
         }
-        
+
         /* loop */
         g_flag = 0;
         for (i = 0; i < times; i++)
         {
             /* delay 1000ms */
             lm75b_interface_delay_ms(1000);
-            
+
             /* read data */
             res = lm75b_interrupt_read((float *)&t);
             if (res != 0)
             {
                 (void)gpio_interrupt_deinit();
                 (void)lm75b_interrupt_deinit();
-                
+
                 return 1;
             }
-            
+
             /* output */
             lm75b_interface_debug_print("lm75b: %d/%d.\n", (uint32_t)(i + 1), (uint32_t)times);
             lm75b_interface_debug_print("lm75b: read is %0.3fC.\n", t);
             if (g_flag != 0)
             {
                 lm75b_interface_debug_print("lm75b: find interrupt.\n");
-                
+
                 break;
             }
         }
-        
+
         /* deinit */
         (void)gpio_interrupt_deinit();
         (void)lm75b_interrupt_deinit();
-        
+
         return 0;
     }
     else if (strcmp("h", type) == 0)
@@ -461,7 +460,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
     else if (strcmp("i", type) == 0)
     {
         lm75b_info_t info;
-        
+
         /* print lm75b info */
         lm75b_info(&info);
         lm75b_interface_debug_print("lm75b: chip is %s.\n", info.chip_name);
@@ -473,7 +472,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
         lm75b_interface_debug_print("lm75b: max current is %0.2fmA.\n", info.max_current_ma);
         lm75b_interface_debug_print("lm75b: max temperature is %0.1fC.\n", info.temperature_max);
         lm75b_interface_debug_print("lm75b: min temperature is %0.1fC.\n", info.temperature_min);
-        
+
         return 0;
     }
     else if (strcmp("p", type) == 0)
@@ -482,7 +481,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
         lm75b_interface_debug_print("lm75b: SCL connected to GPIOB PIN8.\n");
         lm75b_interface_debug_print("lm75b: SDA connected to GPIOB PIN9.\n");
         lm75b_interface_debug_print("lm75b: OS connected to GPIOB PIN0.\n");
-        
+
         return 0;
     }
     else
@@ -498,21 +497,21 @@ uint8_t lm75b(uint8_t argc, char **argv)
 int main(void)
 {
     uint8_t res;
-    
+
     /* stm32f407 clock init and hal init */
     clock_init();
-    
+
     /* delay init */
     delay_init();
-    
+
     /* uart init */
     uart_init(115200);
-    
+
     /* shell init && register lm75b fuction */
     shell_init();
     shell_register("lm75b", lm75b);
     uart_print("lm75b: welcome to libdriver lm75b.\n");
-    
+
     while (1)
     {
         /* read uart */
