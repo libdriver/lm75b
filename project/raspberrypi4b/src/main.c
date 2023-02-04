@@ -77,7 +77,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 5},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     uint32_t times = 3;
     lm75b_address_t addr = LM75B_ADDRESS_A000;
     lm75b_os_operation_mode_t mode = LM75B_OS_OPERATION_INTERRUPT;
@@ -489,7 +489,7 @@ int main(uint8_t argc, char **argv)
     }
     else
     {
-        lm75b_interface_debug_print("lm75b: unknow status code.\n");
+        lm75b_interface_debug_print("lm75b: unknown status code.\n");
     }
 
     return 0;

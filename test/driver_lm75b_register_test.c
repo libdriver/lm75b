@@ -350,7 +350,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     /* lm75b_set_os_polarity/lm75b_get_os_polarity test */
     lm75b_interface_debug_print("lm75b: lm75b_set_os_polarity/lm75b_get_os_polarity test.\n");
     
-    /* set os ploarity low */
+    /* set os polarity low */
     res = lm75b_set_os_polarity(&gs_handle, LM75B_OS_POLARITY_LOW);
     if (res != 0)
     {
@@ -359,7 +359,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
         
         return 1;
     }
-    lm75b_interface_debug_print("lm75b: set os ploarity low.\n");
+    lm75b_interface_debug_print("lm75b: set os polarity low.\n");
     res = lm75b_get_os_polarity(&gs_handle, (lm75b_os_polarity_t *)&polarity);
     if (res != 0)
     {
@@ -370,7 +370,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: check os polarity %s.\n", polarity==LM75B_OS_POLARITY_LOW?"ok":"error");
     
-    /* set os ploarity high */
+    /* set os polarity high */
     res = lm75b_set_os_polarity(&gs_handle, LM75B_OS_POLARITY_HIGH);
     if (res != 0)
     {
@@ -379,7 +379,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
         
         return 1;
     }
-    lm75b_interface_debug_print("lm75b: set os ploarity high.\n");
+    lm75b_interface_debug_print("lm75b: set os polarity high.\n");
     res = lm75b_get_os_polarity(&gs_handle, (lm75b_os_polarity_t *)&polarity);
     if (res != 0)
     {

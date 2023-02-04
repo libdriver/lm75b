@@ -105,7 +105,7 @@ uint8_t lm75b(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 5},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     uint32_t times = 3;
     lm75b_address_t addr = LM75B_ADDRESS_A000;
     lm75b_os_operation_mode_t mode = LM75B_OS_OPERATION_INTERRUPT;
@@ -507,7 +507,7 @@ int main(void)
     /* uart init */
     uart_init(115200);
 
-    /* shell init && register lm75b fuction */
+    /* shell init && register lm75b function */
     shell_init();
     shell_register("lm75b", lm75b);
     uart_print("lm75b: welcome to libdriver lm75b.\n");
@@ -530,7 +530,7 @@ int main(void)
             }
             else if (res == 2)
             {
-                uart_print("lm75b: unknow command.\n");
+                uart_print("lm75b: unknown command.\n");
             }
             else if (res == 3)
             {
@@ -546,7 +546,7 @@ int main(void)
             }
             else
             {
-                uart_print("lm75b: unknow status code.\n");
+                uart_print("lm75b: unknown status code.\n");
             }
             uart_flush();
         }
