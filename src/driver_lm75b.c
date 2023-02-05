@@ -126,7 +126,7 @@ uint8_t lm75b_hysteresis_convert_to_register(lm75b_handle_t *handle, float c, ui
     {
         *reg = ((uint16_t)(c / 0.5f) & 0xFF) << 7;                         /* get reg */
     }
-    else                                                                   /* if negtive */
+    else                                                                   /* if negative */
     {
         *reg = (1<<15) | (~(((uint16_t)(-c /0.5f) & 0xFF) - 1))<<7;        /* get reg */
     }
@@ -159,7 +159,7 @@ uint8_t lm75b_hysteresis_convert_to_data(lm75b_handle_t *handle, uint16_t reg, f
     reg = reg >> 7;                                                /* right shift 7 */
     if ((reg & 0x0100) != 0)                                       /* check first bit */
     {
-        *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negtive set convert temp */
+        *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negative set convert temp */
     }
     else
     {
@@ -270,7 +270,7 @@ uint8_t lm75b_over_temperature_threshold_convert_to_register(lm75b_handle_t *han
     {
         *reg = ((uint16_t)(c / 0.5f) & 0xFF) << 7;                         /* get reg */
     }
-    else                                                                   /* if negtive */
+    else                                                                   /* if negative */
     {
         *reg = (1<<15) | (~(((uint16_t)(-c /0.5f) & 0xFF) - 1))<<7;        /* get reg */
     }
@@ -303,7 +303,7 @@ uint8_t lm75b_over_temperature_threshold_convert_to_data(lm75b_handle_t *handle,
     reg = reg >> 7;                                                /* right shift 7 */
     if ((reg & 0x0100) != 0)                                       /* check first bit */
     {
-        *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negtive set convert temp */
+        *c= -0.5f * (float)((uint16_t)((~(reg))&0xFF) + 1);        /* if negative set convert temp */
     }
     else
     {
@@ -504,7 +504,7 @@ uint8_t lm75b_set_os_polarity(lm75b_handle_t *handle, lm75b_os_polarity_t polari
     }
     prev &= ~ (1 << 2);                                                                    /* clear polarity */
     prev |= polarity << 2;                                                                 /* set polarity */
-    res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write confure */
+    res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write configure */
     if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
@@ -813,7 +813,7 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle)
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write configure */
     if (res != 0)                                                                          /* check result */
     {
-        handle->debug_print("lm75b: write configure failed.\n");                           /* write configigure failed */
+        handle->debug_print("lm75b: write configure failed.\n");                           /* write configure failed */
        
         return 1;                                                                          /* return error */
     }
@@ -866,8 +866,8 @@ uint8_t lm75b_read(lm75b_handle_t *handle, uint16_t *raw, float *s)
     *raw = (*raw) >> 5;                                                                 /* right shift 5 */
     if (((*raw) & 0x0400) != 0)                                                         /* check first bit */
     {
-        *raw = (*raw) | 0xF800U;                                                        /* set negtive part */
-        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          /* if negtive set convert temp */
+        *raw = (*raw) | 0xF800U;                                                        /* set negative part */
+        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          /* if negative set convert temp */
     }
     else
     {
@@ -973,7 +973,7 @@ uint8_t lm75b_info(lm75b_info_t *info)
     info->max_current_ma = MAX_CURRENT;                             /* set maximum current */
     info->temperature_max = TEMPERATURE_MAX;                        /* set minimal temperature */
     info->temperature_min = TEMPERATURE_MIN;                        /* set maximum temperature */
-    info->driver_version = DRIVER_VERSION;                          /* set driver verison */
+    info->driver_version = DRIVER_VERSION;                          /* set driver version */
     
     return 0;                                                       /* success return 0 */
 }

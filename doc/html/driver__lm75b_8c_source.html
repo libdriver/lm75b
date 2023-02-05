@@ -143,7 +143,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        *reg = ((uint16_t)(c / 0.5f) &amp; 0xFF) &lt;&lt; 7;                         <span class="comment">/* get reg */</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">else</span>                                                                   <span class="comment">/* if negtive */</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">else</span>                                                                   <span class="comment">/* if negative */</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        *reg = (1&lt;&lt;15) | (~(((uint16_t)(-c /0.5f) &amp; 0xFF) - 1))&lt;&lt;7;        <span class="comment">/* get reg */</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    reg = reg &gt;&gt; 7;                                                <span class="comment">/* right shift 7 */</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> ((reg &amp; 0x0100) != 0)                                       <span class="comment">/* check first bit */</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        *c= -0.5f * (float)((uint16_t)((~(reg))&amp;0xFF) + 1);        <span class="comment">/* if negtive set convert temp */</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        *c= -0.5f * (float)((uint16_t)((~(reg))&amp;0xFF) + 1);        <span class="comment">/* if negative set convert temp */</span></div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    {</div>
@@ -243,7 +243,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    {</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        *reg = ((uint16_t)(c / 0.5f) &amp; 0xFF) &lt;&lt; 7;                         <span class="comment">/* get reg */</span></div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">else</span>                                                                   <span class="comment">/* if negtive */</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">else</span>                                                                   <span class="comment">/* if negative */</span></div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    {</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        *reg = (1&lt;&lt;15) | (~(((uint16_t)(-c /0.5f) &amp; 0xFF) - 1))&lt;&lt;7;        <span class="comment">/* get reg */</span></div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
@@ -265,7 +265,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    reg = reg &gt;&gt; 7;                                                <span class="comment">/* right shift 7 */</span></div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> ((reg &amp; 0x0100) != 0)                                       <span class="comment">/* check first bit */</span></div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    {</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        *c= -0.5f * (float)((uint16_t)((~(reg))&amp;0xFF) + 1);        <span class="comment">/* if negtive set convert temp */</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        *c= -0.5f * (float)((uint16_t)((~(reg))&amp;0xFF) + 1);        <span class="comment">/* if negative set convert temp */</span></div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    }</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    {</div>
@@ -411,7 +411,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    }</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    prev &amp;= ~ (1 &lt;&lt; 2);                                                                    <span class="comment">/* clear polarity */</span></div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    prev |= polarity &lt;&lt; 2;                                                                 <span class="comment">/* set polarity */</span></div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    res = handle-&gt;<a class="code" href="structlm75b__handle__s.html#adca3ee7a793bbf510d5267daf0fcf1c5">iic_write</a>(handle-&gt;<a class="code" href="structlm75b__handle__s.html#ae4fb63dc1b166464d5da3aa753b0805a">iic_addr</a>, <a class="code" href="driver__lm75b_8c.html#a8fb651e3843f6ef8729f7d8301a3aabe">LM75B_REG_CONF</a>, (uint8_t *)&amp;prev, 1);        <span class="comment">/* write confure */</span></div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    res = handle-&gt;<a class="code" href="structlm75b__handle__s.html#adca3ee7a793bbf510d5267daf0fcf1c5">iic_write</a>(handle-&gt;<a class="code" href="structlm75b__handle__s.html#ae4fb63dc1b166464d5da3aa753b0805a">iic_addr</a>, <a class="code" href="driver__lm75b_8c.html#a8fb651e3843f6ef8729f7d8301a3aabe">LM75B_REG_CONF</a>, (uint8_t *)&amp;prev, 1);        <span class="comment">/* write configure */</span></div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <span class="keywordflow">if</span> (res != 0)                                                                          <span class="comment">/* check result */</span></div>
 <div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    {</div>
 <div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        handle-&gt;<a class="code" href="structlm75b__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;lm75b: write configure failed.\n&quot;</span>);                           <span class="comment">/* write configure failed */</span></div>
@@ -645,7 +645,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    res = handle-&gt;<a class="code" href="structlm75b__handle__s.html#adca3ee7a793bbf510d5267daf0fcf1c5">iic_write</a>(handle-&gt;<a class="code" href="structlm75b__handle__s.html#ae4fb63dc1b166464d5da3aa753b0805a">iic_addr</a>, <a class="code" href="driver__lm75b_8c.html#a8fb651e3843f6ef8729f7d8301a3aabe">LM75B_REG_CONF</a>, (uint8_t *)&amp;prev, 1);        <span class="comment">/* write configure */</span></div>
 <div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    <span class="keywordflow">if</span> (res != 0)                                                                          <span class="comment">/* check result */</span></div>
 <div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;    {</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        handle-&gt;<a class="code" href="structlm75b__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;lm75b: write configure failed.\n&quot;</span>);                           <span class="comment">/* write configigure failed */</span></div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        handle-&gt;<a class="code" href="structlm75b__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;lm75b: write configure failed.\n&quot;</span>);                           <span class="comment">/* write configure failed */</span></div>
 <div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;       </div>
 <div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;        <span class="keywordflow">return</span> 1;                                                                          <span class="comment">/* return error */</span></div>
 <div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;    }</div>
@@ -686,8 +686,8 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;    *raw = (*raw) &gt;&gt; 5;                                                                 <span class="comment">/* right shift 5 */</span></div>
 <div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="keywordflow">if</span> (((*raw) &amp; 0x0400) != 0)                                                         <span class="comment">/* check first bit */</span></div>
 <div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;    {</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;        *raw = (*raw) | 0xF800U;                                                        <span class="comment">/* set negtive part */</span></div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          <span class="comment">/* if negtive set convert temp */</span></div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;        *raw = (*raw) | 0xF800U;                                                        <span class="comment">/* set negative part */</span></div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          <span class="comment">/* if negative set convert temp */</span></div>
 <div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    }</div>
 <div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;    {</div>
@@ -759,7 +759,7 @@ $(document).ready(function(){initNavTree('driver__lm75b_8c_source.html',''); ini
 <div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;    info-&gt;<a class="code" href="structlm75b__info__s.html#a9db82802561bf22d799b03a345f1d1dc">max_current_ma</a> = <a class="code" href="driver__lm75b_8c.html#a2989837a37d6d63b59c6dd541b785435">MAX_CURRENT</a>;                             <span class="comment">/* set maximum current */</span></div>
 <div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;    info-&gt;<a class="code" href="structlm75b__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6">temperature_max</a> = <a class="code" href="driver__lm75b_8c.html#a90c0b20d54005712fcc8cb01281360e9">TEMPERATURE_MAX</a>;                        <span class="comment">/* set minimal temperature */</span></div>
 <div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;    info-&gt;<a class="code" href="structlm75b__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e">temperature_min</a> = <a class="code" href="driver__lm75b_8c.html#aab353db5bf4eb787f86a2080f609a551">TEMPERATURE_MIN</a>;                        <span class="comment">/* set maximum temperature */</span></div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    info-&gt;<a class="code" href="structlm75b__info__s.html#a41b0bd442708b70d252c50b92c75265a">driver_version</a> = <a class="code" href="driver__lm75b_8c.html#ae578001fe043b4cca7a0edd801cfe9c4">DRIVER_VERSION</a>;                          <span class="comment">/* set driver verison */</span></div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    info-&gt;<a class="code" href="structlm75b__info__s.html#a41b0bd442708b70d252c50b92c75265a">driver_version</a> = <a class="code" href="driver__lm75b_8c.html#ae578001fe043b4cca7a0edd801cfe9c4">DRIVER_VERSION</a>;                          <span class="comment">/* set driver version */</span></div>
 <div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;    </div>
 <div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;    <span class="keywordflow">return</span> 0;                                                       <span class="comment">/* success return 0 */</span></div>
 <div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;}</div>
