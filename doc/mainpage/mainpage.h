@@ -1,6 +1,6 @@
 /**
  * @mainpage  LibDriver LM75B
- * @brief     libdriver lm75b is a full function driver of lm75b and it can run in both MCU and Linux platform.
+ * @brief     LibDriver LM75B is a full function driver of LM75B and it can run in both MCU and Linux platform.
  * @version   2.0.0
  * @author    Shifeng Li
  *
