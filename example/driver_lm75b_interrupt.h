@@ -51,10 +51,10 @@ extern "C"{
 
 /**
  * @brief     interrupt example init
- * @param[in] addr is the iic address pin
- * @param[in] mode is the os operation mode
- * @param[in] low_threshold is the interrupt low threshold
- * @param[in] high_threshold is the interrupt high threshold
+ * @param[in] addr iic address pin
+ * @param[in] mode os operation mode
+ * @param[in] low_threshold interrupt low threshold
+ * @param[in] high_threshold interrupt high threshold
  * @return    status code
  *            - 0 success
  *            - 1 init failed
@@ -74,7 +74,7 @@ uint8_t lm75b_interrupt_deinit(void);
 
 /**
  * @brief      interrupt example read
- * @param[out] *s points to a converted temperature buffer
+ * @param[out] *s pointer to a converted temperature buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

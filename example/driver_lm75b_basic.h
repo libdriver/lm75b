@@ -53,7 +53,7 @@ extern "C"{
 
 /**
  * @brief     basic example init
- * @param[in] addr is the iic address pin
+ * @param[in] addr iic address pin
  * @return    status code
  *            - 0 success
  *            - 1 init failed
@@ -72,7 +72,7 @@ uint8_t lm75b_basic_deinit(void);
 
 /**
  * @brief      basic example read
- * @param[out] *s points to a converted temperature buffer
+ * @param[out] *s pointer to a converted temperature buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

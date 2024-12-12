@@ -171,8 +171,8 @@ Functions</h2></td></tr>
 <p>get the chip fault queue </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*fault_queue</td><td>points to a chip fault queue buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*fault_queue</td><td>pointer to a chip fault queue buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -218,8 +218,8 @@ Functions</h2></td></tr>
 <p>get the hysteresis value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*hysteresis</td><td>points to a hysteresis value buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*hysteresis</td><td>pointer to a hysteresis value buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -265,8 +265,8 @@ Functions</h2></td></tr>
 <p>get the chip interrupt mode </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*mode</td><td>points to an interrupt mode buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*mode</td><td>pointer to an interrupt mode buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -312,8 +312,8 @@ Functions</h2></td></tr>
 <p>get the chip os polarity </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*polarity</td><td>points to an os polarity buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*polarity</td><td>pointer to an os polarity buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -359,8 +359,8 @@ Functions</h2></td></tr>
 <p>get the over temperature threshold </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold</td><td>points to an over temperature threshold buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold</td><td>pointer to an over temperature threshold buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -412,9 +412,9 @@ Functions</h2></td></tr>
 <p>convert the register raw data to the hysteresis value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>is the register raw data </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*c</td><td>points to a converted hysteresis value buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>register raw data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*c</td><td>pointer to a converted hysteresis value buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -465,9 +465,9 @@ Functions</h2></td></tr>
 <p>convert the hysteresis value to the register data </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>is the hysteresis value </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>points to a register data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>hysteresis value </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>pointer to a register data buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -518,9 +518,9 @@ Functions</h2></td></tr>
 <p>convert the register raw data to the over temperature threshold </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>is the register raw data </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*c</td><td>points to a converted over temperature threshold buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>register raw data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*c</td><td>pointer to a converted over temperature threshold buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -571,9 +571,9 @@ Functions</h2></td></tr>
 <p>convert the over temperature threshold to the register data </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>is the over temperature threshold </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>points to a register data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>over temperature threshold </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>pointer to a register data buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -618,8 +618,8 @@ Functions</h2></td></tr>
 <p>set the chip fault queue </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fault_queue</td><td>is the chip fault queue </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fault_queue</td><td>chip fault queue </td></tr>
   </table>
   </dd>
 </dl>
@@ -665,8 +665,8 @@ Functions</h2></td></tr>
 <p>set the hysteresis value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">hysteresis</td><td>is the hysteresis value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hysteresis</td><td>hysteresis value </td></tr>
   </table>
   </dd>
 </dl>
@@ -712,8 +712,8 @@ Functions</h2></td></tr>
 <p>set the chip interrupt mode </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>is the interrupt mode </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>interrupt mode </td></tr>
   </table>
   </dd>
 </dl>
@@ -759,8 +759,8 @@ Functions</h2></td></tr>
 <p>set the chip os polarity </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">polarity</td><td>is the os polarity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">polarity</td><td>os polarity </td></tr>
   </table>
   </dd>
 </dl>
@@ -806,8 +806,8 @@ Functions</h2></td></tr>
 <p>set the over temperature threshold </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>is the over temperature threshold </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>over temperature threshold </td></tr>
   </table>
   </dd>
 </dl>
