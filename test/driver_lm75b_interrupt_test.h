@@ -51,11 +51,11 @@ extern "C"{
 
 /**
  * @brief     interrupt test
- * @param[in] addr is the iic address pin
- * @param[in] mode is the os operation mode
- * @param[in] low_threshold is the interrupt low threshold
- * @param[in] high_threshold is the interrupt high threshold
- * @param[in] times is the test times
+ * @param[in] addr iic address pin
+ * @param[in] mode os operation mode
+ * @param[in] low_threshold interrupt low threshold
+ * @param[in] high_threshold interrupt high threshold
+ * @param[in] times test times
  * @return    status code
  *            - 0 success
  *            - 1 test failed

@@ -41,8 +41,8 @@ static lm75b_handle_t gs_handle;        /**< lm75b handle */
 
 /**
  * @brief     read test
- * @param[in] addr is the iic address pin
- * @param[in] times is the test times
+ * @param[in] addr iic address pin
+ * @param[in] times test times
  * @return    status code
  *            - 0 success
  *            - 1 test failed

@@ -373,7 +373,7 @@ Functions</h2></td></tr>
 <p>close the chip </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -419,8 +419,8 @@ Functions</h2></td></tr>
 <p>get the iic address pin </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*addr_pin</td><td>points to a chip iic address pin buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*addr_pin</td><td>pointer to a chip iic address pin buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -464,8 +464,8 @@ Functions</h2></td></tr>
 <p>get the chip mode </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*mode</td><td>points to a chip mode buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*mode</td><td>pointer to a chip mode buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -501,7 +501,7 @@ Functions</h2></td></tr>
 <p>get chip's information </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">*info</td><td>points to an lm75b info structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*info</td><td>pointer to an lm75b info structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -535,7 +535,7 @@ Functions</h2></td></tr>
 <p>initialize the chip </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -587,9 +587,9 @@ Functions</h2></td></tr>
 <p>read data from the chip </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*raw</td><td>points to a raw temperature buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*s</td><td>points to a converted temperature buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*raw</td><td>pointer to a raw temperature buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*s</td><td>pointer to a converted temperature buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -635,8 +635,8 @@ Functions</h2></td></tr>
 <p>set the iic address pin </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr_pin</td><td>is the chip iic address pin </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr_pin</td><td>chip iic address pin </td></tr>
   </table>
   </dd>
 </dl>
@@ -680,8 +680,8 @@ Functions</h2></td></tr>
 <p>set the chip mode </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to an lm75b handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>is the chip mode </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to an lm75b handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>chip mode </td></tr>
   </table>
   </dd>
 </dl>
