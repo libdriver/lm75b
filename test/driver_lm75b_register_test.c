@@ -307,8 +307,8 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
     }
     lm75b_interface_debug_print("lm75b: check fault queue %s.\n", fault_queue==LM75B_FAULT_QUEUE_2?"ok":"error");
     
-    /* fault queue 3 */
-    res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_3);
+    /* fault queue 4 */
+    res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_4);
     if (res != 0)
     {
         lm75b_interface_debug_print("lm75b: set fault queue failed.\n");
@@ -316,7 +316,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
         
         return 1;
     }
-    lm75b_interface_debug_print("lm75b: set fault queue 3.\n");
+    lm75b_interface_debug_print("lm75b: set fault queue 4.\n");
     res = lm75b_get_fault_queue(&gs_handle, (lm75b_fault_queue_t *)&fault_queue);
     if (res != 0)
     {
@@ -325,7 +325,7 @@ uint8_t lm75b_register_test(lm75b_address_t addr)
         
         return 1;
     }
-    lm75b_interface_debug_print("lm75b: check fault queue %s.\n", fault_queue==LM75B_FAULT_QUEUE_3?"ok":"error");
+    lm75b_interface_debug_print("lm75b: check fault queue %s.\n", fault_queue==LM75B_FAULT_QUEUE_4?"ok":"error");
     
     /* fault queue 6 */
     res = lm75b_set_fault_queue(&gs_handle, LM75B_FAULT_QUEUE_6);

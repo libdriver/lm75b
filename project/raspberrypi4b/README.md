@@ -183,7 +183,7 @@ lm75b: set fault queue 1.
 lm75b: check fault queue ok.
 lm75b: set fault queue 2.
 lm75b: check fault queue ok.
-lm75b: set fault queue 3.
+lm75b: set fault queue 4.
 lm75b: check fault queue ok.
 lm75b: set fault queue 6.
 lm75b: check fault queue ok.
