@@ -22,7 +22,7 @@ var driver__lm75b_8h =
     [ "lm75b_fault_queue_t", "group__lm75b__base__driver.html#ga703f6bd9f5bfaaab895990dd396af4f9", [
       [ "LM75B_FAULT_QUEUE_1", "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9af134a4a1ecf1c72d5ebcefc02f5ac172", null ],
       [ "LM75B_FAULT_QUEUE_2", "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a920b4011930fee0245007b1ad9564393", null ],
-      [ "LM75B_FAULT_QUEUE_3", "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a12b5eb8c09aa351d39a557ba9be2d04e", null ],
+      [ "LM75B_FAULT_QUEUE_4", "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a78c17aa78a2950bf7fce4c1f27dc7dbb", null ],
       [ "LM75B_FAULT_QUEUE_6", "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9afd127f7500942422b2987205aa967955", null ]
     ] ],
     [ "lm75b_mode_t", "group__lm75b__base__driver.html#ga6c9089d21e552849fdf1eab553846bec", [

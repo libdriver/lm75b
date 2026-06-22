@@ -75,7 +75,7 @@ var NAVTREEINDEX0 =
 "group__lm75b__base__driver.html#gafc440ffc4c51fdd0af8d7bcce79bc1a5":[0,0,1,7],
 "group__lm75b__base__driver.html#gga6c9089d21e552849fdf1eab553846beca020a21f5b50f8a53f62c2fd209a7d2ea":[0,0,1,6,0],
 "group__lm75b__base__driver.html#gga6c9089d21e552849fdf1eab553846beca5911df2bf6a3af2cc75a2d3c3b9217c9":[0,0,1,6,1],
-"group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a12b5eb8c09aa351d39a557ba9be2d04e":[0,0,1,5,2],
+"group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a78c17aa78a2950bf7fce4c1f27dc7dbb":[0,0,1,5,2],
 "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a920b4011930fee0245007b1ad9564393":[0,0,1,5,1],
 "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9af134a4a1ecf1c72d5ebcefc02f5ac172":[0,0,1,5,0],
 "group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9afd127f7500942422b2987205aa967955":[0,0,1,5,3],

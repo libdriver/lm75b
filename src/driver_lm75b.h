@@ -79,7 +79,7 @@ typedef enum
 {
     LM75B_FAULT_QUEUE_1 = 0,        /**< fault queue 1 */
     LM75B_FAULT_QUEUE_2 = 1,        /**< fault queue 2 */
-    LM75B_FAULT_QUEUE_3 = 2,        /**< fault queue 3 */
+    LM75B_FAULT_QUEUE_4 = 2,        /**< fault queue 4 */
     LM75B_FAULT_QUEUE_6 = 3,        /**< fault queue 6 */
 } lm75b_fault_queue_t;
 
@@ -93,7 +93,7 @@ typedef enum
 } lm75b_os_polarity_t;
 
 /**
- * @brief lm75b os polarity enumeration definition
+ * @brief lm75b mode enumeration definition
  */
 typedef enum
 {

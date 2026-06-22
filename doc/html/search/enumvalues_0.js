@@ -10,7 +10,7 @@ var searchData=
   ['lm75b_5faddress_5fa111_7',['LM75B_ADDRESS_A111',['../group__lm75b__base__driver.html#gga733aa08c97fa417b2edba1fb2edcf010a9ef692a6f7b88934d38277aec8335431',1,'driver_lm75b.h']]],
   ['lm75b_5ffault_5fqueue_5f1_8',['LM75B_FAULT_QUEUE_1',['../group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9af134a4a1ecf1c72d5ebcefc02f5ac172',1,'driver_lm75b.h']]],
   ['lm75b_5ffault_5fqueue_5f2_9',['LM75B_FAULT_QUEUE_2',['../group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a920b4011930fee0245007b1ad9564393',1,'driver_lm75b.h']]],
-  ['lm75b_5ffault_5fqueue_5f3_10',['LM75B_FAULT_QUEUE_3',['../group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a12b5eb8c09aa351d39a557ba9be2d04e',1,'driver_lm75b.h']]],
+  ['lm75b_5ffault_5fqueue_5f4_10',['LM75B_FAULT_QUEUE_4',['../group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9a78c17aa78a2950bf7fce4c1f27dc7dbb',1,'driver_lm75b.h']]],
   ['lm75b_5ffault_5fqueue_5f6_11',['LM75B_FAULT_QUEUE_6',['../group__lm75b__base__driver.html#gga703f6bd9f5bfaaab895990dd396af4f9afd127f7500942422b2987205aa967955',1,'driver_lm75b.h']]],
   ['lm75b_5fmode_5fnormal_12',['LM75B_MODE_NORMAL',['../group__lm75b__base__driver.html#gga6c9089d21e552849fdf1eab553846beca020a21f5b50f8a53f62c2fd209a7d2ea',1,'driver_lm75b.h']]],
   ['lm75b_5fmode_5fshutdown_13',['LM75B_MODE_SHUTDOWN',['../group__lm75b__base__driver.html#gga6c9089d21e552849fdf1eab553846beca5911df2bf6a3af2cc75a2d3c3b9217c9',1,'driver_lm75b.h']]],
