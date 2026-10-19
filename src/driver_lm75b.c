@@ -122,13 +122,14 @@ uint8_t lm75b_hysteresis_convert_to_register(lm75b_handle_t *handle, float c, ui
         return 3;                                                          /* return error */
     }
     
-    if (c > 0)                                                             /* if positive */
+    if (c >= 0)                                                            /* if positive */
     {
         *reg = ((uint16_t)(c / 0.5f) & 0xFF) << 7;                         /* get reg */
     }
     else                                                                   /* if negative */
     {
-        *reg = (1<<15) | (~(((uint16_t)(-c /0.5f) & 0xFF) - 1))<<7;        /* get reg */
+        *reg = (uint16_t)(((uint16_t)(0x200 - 
+                           (uint16_t)(-c / 0.5f)) & 0x1FF) << 7);          /* get reg */
     }
     
     return 0;                                                              /* success return 0 */
@@ -266,13 +267,14 @@ uint8_t lm75b_over_temperature_threshold_convert_to_register(lm75b_handle_t *han
         return 3;                                                          /* return error */
     }
     
-    if (c > 0)                                                             /* if positive */
+    if (c >= 0)                                                            /* if positive */
     {
         *reg = ((uint16_t)(c / 0.5f) & 0xFF) << 7;                         /* get reg */
     }
     else                                                                   /* if negative */
     {
-        *reg = (1<<15) | (~(((uint16_t)(-c /0.5f) & 0xFF) - 1))<<7;        /* get reg */
+        *reg = (uint16_t)(((uint16_t)(0x200 - 
+                           (uint16_t)(-c / 0.5f)) & 0x1FF) << 7);          /* get reg */
     }
     
     return 0;                                                              /* success return 0 */
@@ -809,7 +811,7 @@ uint8_t lm75b_deinit(lm75b_handle_t *handle)
        
         return 1;                                                                          /* return error */
     }
-    prev &= ~(1 << 0);                                                                     /* clear mode */
+    prev |= (1 << 0);                                                                      /* enter shutdown mode */
     res = handle->iic_write(handle->iic_addr, LM75B_REG_CONF, (uint8_t *)&prev, 1);        /* write configure */
     if (res != 0)                                                                          /* check result */
     {
@@ -867,11 +869,11 @@ uint8_t lm75b_read(lm75b_handle_t *handle, uint16_t *raw, float *s)
     if (((*raw) & 0x0400) != 0)                                                         /* check first bit */
     {
         *raw = (*raw) | 0xF800U;                                                        /* set negative part */
-        *s = (float)(-(~(*raw) + 1)) * 0.125f;                                          /* if negative set convert temp */
+        *s = (float)((int16_t)(*raw)) * 0.125f;                                         /* if negative set convert temp */
     }
     else
     {
-        *s = (float)(*raw) * 0.125f;                                                    /* if positive set convert temp */
+        *s = (float)((int16_t)(*raw)) * 0.125f;                                         /* if positive set convert temp */
     }
     
     return 0;                                                                           /* success return 0 */
